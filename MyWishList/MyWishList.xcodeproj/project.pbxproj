@@ -12,6 +12,7 @@
 		63BEC8ED2AA9E54500E37EAC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8EC2AA9E54500E37EAC /* ViewController.swift */; };
 		63BEC8F22AA9E54600E37EAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63BEC8F12AA9E54600E37EAC /* Assets.xcassets */; };
 		63BEC8F52AA9E54600E37EAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63BEC8F32AA9E54600E37EAC /* LaunchScreen.storyboard */; };
+		63BEC8FE2AA9E81500E37EAC /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8FD2AA9E81500E37EAC /* APIKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		63BEC8F12AA9E54600E37EAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63BEC8F42AA9E54600E37EAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63BEC8F62AA9E54600E37EAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63BEC8FD2AA9E81500E37EAC /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,11 +59,20 @@
 				63BEC8E82AA9E54500E37EAC /* AppDelegate.swift */,
 				63BEC8EA2AA9E54500E37EAC /* SceneDelegate.swift */,
 				63BEC8EC2AA9E54500E37EAC /* ViewController.swift */,
+				63BEC8FC2AA9E7F200E37EAC /* Network */,
 				63BEC8F12AA9E54600E37EAC /* Assets.xcassets */,
 				63BEC8F32AA9E54600E37EAC /* LaunchScreen.storyboard */,
 				63BEC8F62AA9E54600E37EAC /* Info.plist */,
 			);
 			path = MyWishList;
+			sourceTree = "<group>";
+		};
+		63BEC8FC2AA9E7F200E37EAC /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				63BEC8FD2AA9E81500E37EAC /* APIKey.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +147,7 @@
 			files = (
 				63BEC8ED2AA9E54500E37EAC /* ViewController.swift in Sources */,
 				63BEC8E92AA9E54500E37EAC /* AppDelegate.swift in Sources */,
+				63BEC8FE2AA9E81500E37EAC /* APIKey.swift in Sources */,
 				63BEC8EB2AA9E54500E37EAC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
