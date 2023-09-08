@@ -21,6 +21,7 @@
 		63BEC91B2AAAFE7600E37EAC /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC91A2AAAFE7600E37EAC /* BaseViewController.swift */; };
 		63BEC91F2AAB04B500E37EAC /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC91E2AAB04B500E37EAC /* BaseCollectionViewCell.swift */; };
 		63BEC9212AAB0BAE00E37EAC /* BaseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC9202AAB0BAE00E37EAC /* BaseCollectionView.swift */; };
+		63BEC92A2AAB2FB100E37EAC /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC9292AAB2FB100E37EAC /* UIFont+.swift */; };
 		63BEC92C2AAB33BD00E37EAC /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC92B2AAB33BD00E37EAC /* UIImageView+.swift */; };
 		63BEC92E2AAB360F00E37EAC /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC92D2AAB360F00E37EAC /* ReuseIdentifiable.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		63BEC91A2AAAFE7600E37EAC /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		63BEC91E2AAB04B500E37EAC /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		63BEC9202AAB0BAE00E37EAC /* BaseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionView.swift; sourceTree = "<group>"; };
+		63BEC9292AAB2FB100E37EAC /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		63BEC92B2AAB33BD00E37EAC /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		63BEC92D2AAB360F00E37EAC /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				63BEC90A2AAA21F500E37EAC /* URLQueryItem+.swift */,
+				63BEC9292AAB2FB100E37EAC /* UIFont+.swift */,
 				63BEC92B2AAB33BD00E37EAC /* UIImageView+.swift */,
 				63BEC92D2AAB360F00E37EAC /* ReuseIdentifiable.swift */,
 			);
@@ -216,6 +219,7 @@
 				63BEC91F2AAB04B500E37EAC /* BaseCollectionViewCell.swift in Sources */,
 				63BEC9212AAB0BAE00E37EAC /* BaseCollectionView.swift in Sources */,
 				63BEC8EB2AA9E54500E37EAC /* SceneDelegate.swift in Sources */,
+				63BEC92A2AAB2FB100E37EAC /* UIFont+.swift in Sources */,
 				63BEC91B2AAAFE7600E37EAC /* BaseViewController.swift in Sources */,
 				63BEC9032AA9EACC00E37EAC /* QueryResult.swift in Sources */,
 				63BEC9082AAA205100E37EAC /* QuerySortType.swift in Sources */,
