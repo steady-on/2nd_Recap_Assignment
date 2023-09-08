@@ -8,9 +8,8 @@
 import Foundation
 
 extension URLQueryItem {
-    static var display: URLQueryItem {
-        let displayItemCount = 30
-        return URLQueryItem(name: "display", value: "\(displayItemCount)")
+    init(displayItemCount: Int) {
+        self.init(name: "display", value: "\(displayItemCount)")
     }
     
     init(sortType: QuerySortType) {
