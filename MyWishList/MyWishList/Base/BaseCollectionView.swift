@@ -20,5 +20,7 @@ class BaseCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure() {}
+    func configure() {
+        backgroundColor = .systemGroupedBackground
+    }
 }
