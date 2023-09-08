@@ -21,6 +21,7 @@
 		63BEC91B2AAAFE7600E37EAC /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC91A2AAAFE7600E37EAC /* BaseViewController.swift */; };
 		63BEC91F2AAB04B500E37EAC /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC91E2AAB04B500E37EAC /* BaseCollectionViewCell.swift */; };
 		63BEC9212AAB0BAE00E37EAC /* BaseCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC9202AAB0BAE00E37EAC /* BaseCollectionView.swift */; };
+		63BEC92E2AAB360F00E37EAC /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC92D2AAB360F00E37EAC /* ReuseIdentifiable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		63BEC91A2AAAFE7600E37EAC /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		63BEC91E2AAB04B500E37EAC /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		63BEC9202AAB0BAE00E37EAC /* BaseCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionView.swift; sourceTree = "<group>"; };
+		63BEC92D2AAB360F00E37EAC /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				63BEC90A2AAA21F500E37EAC /* URLQueryItem+.swift */,
+				63BEC92D2AAB360F00E37EAC /* ReuseIdentifiable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63BEC92E2AAB360F00E37EAC /* ReuseIdentifiable.swift in Sources */,
 				63BEC8ED2AA9E54500E37EAC /* ViewController.swift in Sources */,
 				63BEC9062AA9F1A100E37EAC /* NetworkError.swift in Sources */,
 				63BEC8E92AA9E54500E37EAC /* AppDelegate.swift in Sources */,
