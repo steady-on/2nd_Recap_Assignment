@@ -208,7 +208,18 @@ extension ProductSearchingViewController: UICollectionViewDelegate, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: WebView로 이동하는 코드 추가
+        let item = queryResultItems[indexPath.item]
+        
+        let productDetailWebView = ProductDetailWebViewController(link: item.link)
+        productDetailWebView.title = item.title
+        
+        let image = item.isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+        productDetailWebView.navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(temp))
+        navigationController?.pushViewController(productDetailWebView, animated: true)
+    }
+    
+    @objc func temp() {
+        
     }
 }
 
