@@ -21,4 +21,14 @@ class BaseViewController: UIViewController {
     }
     
     func setConstraints() {}
+    
+    func presentErrorAlert(_ error: Error) {
+        let alert = UIAlertController(title: error.localizedDescription, message: nil, preferredStyle: .alert)
+        
+        let okay = UIAlertAction(title: "알겠어요!", style: .cancel)
+        
+        alert.addAction(okay)
+        
+        present(alert, animated: true)
+    }
 }
