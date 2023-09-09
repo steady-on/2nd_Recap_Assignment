@@ -15,7 +15,7 @@ class MWCollectionViewCell: BaseCollectionViewCell {
             
             let buttonImage = item.isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
             toggleWishButton.setImage(buttonImage, for: .normal)
-            mallNameLabel.text = item.mallName
+            mallNameLabel.text = "[" + item.mallName + "]"
             titleLabel.text = item.title
             priceLabel.text = item.priceString
         }
@@ -32,7 +32,7 @@ class MWCollectionViewCell: BaseCollectionViewCell {
     
     private lazy var toggleWishButton: UIButton = {
         let button = UIButton()
-        button.frame = .init(x: 0, y: 0, width: 30, height: 30)
+        button.frame = .init(x: 0, y: 0, width: 35, height: 35)
         button.backgroundColor = .systemBackground
         button.tintColor = .systemPink
         button.layer.cornerRadius = button.frame.width * 0.5
@@ -72,7 +72,6 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         contentView.backgroundColor = .tertiarySystemBackground
         contentView.layer.cornerRadius = 20
         contentView.clipsToBounds = true
-        contentView.directionalLayoutMargins = .init(top: 8, leading: 8, bottom: 8, trailing: 8)
         
         let components = [productImageView, toggleWishButton, infoTextStackView]
         components.forEach { component in
