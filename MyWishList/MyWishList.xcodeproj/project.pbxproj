@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		636AA09F2AAC9F2E0046324A /* MWToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA09E2AAC9F2E0046324A /* MWToggleButton.swift */; };
 		636AA0A62AACC4730046324A /* MWIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0A52AACC4730046324A /* MWIndicatorView.swift */; };
+		636AA0A82AACCB510046324A /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0A72AACCB510046324A /* BaseView.swift */; };
 		63BEC8E92AA9E54500E37EAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8E82AA9E54500E37EAC /* AppDelegate.swift */; };
 		63BEC8EB2AA9E54500E37EAC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8EA2AA9E54500E37EAC /* SceneDelegate.swift */; };
 		63BEC8ED2AA9E54500E37EAC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8EC2AA9E54500E37EAC /* ViewController.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		636AA09E2AAC9F2E0046324A /* MWToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWToggleButton.swift; sourceTree = "<group>"; };
 		636AA0A52AACC4730046324A /* MWIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWIndicatorView.swift; sourceTree = "<group>"; };
+		636AA0A72AACCB510046324A /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		63BEC8E52AA9E54500E37EAC /* MyWishList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWishList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63BEC8E82AA9E54500E37EAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63BEC8EA2AA9E54500E37EAC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				63BEC91A2AAAFE7600E37EAC /* BaseViewController.swift */,
 				63BEC91E2AAB04B500E37EAC /* BaseCollectionViewCell.swift */,
 				63BEC9202AAB0BAE00E37EAC /* BaseCollectionView.swift */,
+				636AA0A72AACCB510046324A /* BaseView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				63BEC9032AA9EACC00E37EAC /* QueryResult.swift in Sources */,
 				63BEC9082AAA205100E37EAC /* QuerySortType.swift in Sources */,
 				63BEC90B2AAA21F500E37EAC /* URLQueryItem+.swift in Sources */,
+				636AA0A82AACCB510046324A /* BaseView.swift in Sources */,
 				63BEC9262AAB242800E37EAC /* MWCollectionViewCell.swift in Sources */,
 				63BEC9002AA9E8DE00E37EAC /* NaverSearchAPIManager.swift in Sources */,
 			);
