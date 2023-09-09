@@ -37,10 +37,10 @@ struct Item: Codable {
         originTitle = originTitle.replacingOccurrences(of: "<b>", with: "")
         title = originTitle.replacingOccurrences(of: "</b>", with: "")
         
-        link = try container.decode(String.self, forKey: .link)
         image = try container.decode(String.self, forKey: .image)
         mallName = try container.decode(String.self, forKey: .mallName)
         productID = try container.decode(String.self, forKey: .productID)
+        link = "https://msearch.shopping.naver.com/product/\(self.productID)"
         
         let lprice = try container.decode(String.self, forKey: .priceString)
         priceInt = Int(lprice) ?? 0
