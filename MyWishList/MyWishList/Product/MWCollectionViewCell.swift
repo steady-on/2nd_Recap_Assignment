@@ -68,6 +68,13 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         return label
     }()
     
+    override func prepareForReuse() {
+        productImageView.image = nil
+        mallNameLabel.text = nil
+        titleLabel.text = nil
+        priceLabel.text = nil
+    }
+    
     override func configureView() {
         contentView.backgroundColor = .tertiarySystemBackground
         contentView.layer.cornerRadius = 20
