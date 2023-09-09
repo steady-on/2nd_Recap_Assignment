@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum QuerySortType: CaseIterable {
+enum QuerySortType: Int, CaseIterable {
     case accuracy
     case date
     case ascending
