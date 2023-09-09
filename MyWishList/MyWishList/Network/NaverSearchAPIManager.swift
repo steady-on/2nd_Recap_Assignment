@@ -60,7 +60,7 @@ final class NaverSearchAPIManager {
         }
         
         if nextPage {
-            start = start + displayItemCount <= total ? start + displayItemCount : displayItemCount
+            start = start + displayItemCount <= total ? start + displayItemCount : total
         }
         
         return [.init(keyword: self.keyword), .init(sortType: self.sortType), .init(displayItemCount: self.displayItemCount), .init(startValue: start)]
