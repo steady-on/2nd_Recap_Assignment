@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		636AA09F2AAC9F2E0046324A /* MWToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA09E2AAC9F2E0046324A /* MWToggleButton.swift */; };
+		636AA0A42AACA3190046324A /* ProductSearchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0A32AACA3190046324A /* ProductSearchingViewController.swift */; };
 		636AA0A62AACC4730046324A /* MWIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0A52AACC4730046324A /* MWIndicatorView.swift */; };
 		636AA0A82AACCB510046324A /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0A72AACCB510046324A /* BaseView.swift */; };
 		636AA0AB2AACD0EE0046324A /* MWPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0AA2AACD0EE0046324A /* MWPlaceholderView.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		636AA09E2AAC9F2E0046324A /* MWToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWToggleButton.swift; sourceTree = "<group>"; };
+		636AA0A32AACA3190046324A /* ProductSearchingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSearchingViewController.swift; sourceTree = "<group>"; };
 		636AA0A52AACC4730046324A /* MWIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWIndicatorView.swift; sourceTree = "<group>"; };
 		636AA0A72AACCB510046324A /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		636AA0AA2AACD0EE0046324A /* MWPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWPlaceholderView.swift; sourceTree = "<group>"; };
@@ -71,6 +73,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		636AA0A02AACA12C0046324A /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				636AA0A32AACA3190046324A /* ProductSearchingViewController.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
 		63BEC8DC2AA9E54500E37EAC = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +103,7 @@
 				63BEC8E82AA9E54500E37EAC /* AppDelegate.swift */,
 				63BEC8EA2AA9E54500E37EAC /* SceneDelegate.swift */,
 				63BEC8EC2AA9E54500E37EAC /* ViewController.swift */,
+				636AA0A02AACA12C0046324A /* Scene */,
 				63BEC9222AAB1FB700E37EAC /* Product */,
 				63BEC9192AAAFE5D00E37EAC /* Base */,
 				63BEC9012AA9EA9B00E37EAC /* Model */,
@@ -245,6 +256,7 @@
 				63BEC8FE2AA9E81500E37EAC /* APIKey.swift in Sources */,
 				63BEC92C2AAB33BD00E37EAC /* UIImageView+.swift in Sources */,
 				63BEC91F2AAB04B500E37EAC /* BaseCollectionViewCell.swift in Sources */,
+				636AA0A42AACA3190046324A /* ProductSearchingViewController.swift in Sources */,
 				63BEC9212AAB0BAE00E37EAC /* BaseCollectionView.swift in Sources */,
 				63BEC8EB2AA9E54500E37EAC /* SceneDelegate.swift in Sources */,
 				636AA09F2AAC9F2E0046324A /* MWToggleButton.swift in Sources */,
