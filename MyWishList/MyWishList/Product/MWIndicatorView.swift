@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MWIndicatorView: UIView {
+class MWIndicatorView: BaseView {
     
     private lazy var indicatorView: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
@@ -25,26 +25,14 @@ class MWIndicatorView: UIView {
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        configureView()
-        setConstraints()
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configureView() {
+    override func configure() {
         backgroundColor = .systemBackground.withAlphaComponent(0.4)
         
         addSubview(indicatorView)
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func setConstraints() {
+    override func setConstraints() {
         NSLayoutConstraint.activate([
             indicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
             indicatorView.centerYAnchor.constraint(equalTo: centerYAnchor)
