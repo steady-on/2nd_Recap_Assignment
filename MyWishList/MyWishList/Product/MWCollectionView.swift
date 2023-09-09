@@ -28,10 +28,10 @@ class MWCollectionView: BaseCollectionView {
         
         layout.minimumLineSpacing = spacing
         layout.minimumInteritemSpacing = spacing
-        layout.sectionInset = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: spacing)
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
         
         let width = (UIScreen.main.bounds.width - (spacing * 3)) / 2
-        layout.itemSize = .init(width: width, height: width * 1.6)
+        layout.itemSize = .init(width: width, height: width * 1.65)
         
         return layout
     }
