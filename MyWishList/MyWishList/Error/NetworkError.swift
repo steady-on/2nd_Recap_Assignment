@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NetworkError: Error, CustomStringConvertible {
+enum NetworkError: Error {
     case notAccessNetwork
     case invalidRequestError
     case serverError
@@ -24,5 +24,11 @@ enum NetworkError: Error, CustomStringConvertible {
         case .jsonParseError:
             return "데이터를 가져오는 도중 문제가 발생했습니다."
         }
+    }
+}
+
+extension NetworkError: LocalizedError {
+    var errorDescription: String? {
+        return NSLocalizedString(self.description, comment: "")
     }
 }
