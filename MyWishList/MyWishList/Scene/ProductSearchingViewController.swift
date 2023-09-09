@@ -9,6 +9,13 @@ import UIKit
 
 class ProductSearchingViewController: BaseViewController {
     
+    private var queryResultItems = [Item]() {
+        didSet {
+            noResultView.isHidden = !queryResultItems.isEmpty
+            searchResultsCollectionView.reloadData()
+        }
+    }
+    
     private lazy var webSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "오늘은 뭘 찜해볼까요?"
@@ -67,12 +74,17 @@ class ProductSearchingViewController: BaseViewController {
         
         title = "상품 검색"
         
+        webSearchBar.delegate = self
+        searchResultsCollectionView.delegate = self
+        searchResultsCollectionView.dataSource = self
+        searchResultsCollectionView.prefetchDataSource = self
+        
         let components = [webSearchBar, sortButtonStackView, searchResultsCollectionView, indicatorView, placeholderView, noResultView]
         components.forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        
+
         indicatorView.isHidden = true
         noResultView.isHidden = true
         
@@ -127,8 +139,95 @@ class ProductSearchingViewController: BaseViewController {
     }
     
     @objc func sortButtonTapped(_ sender: UIButton) {
+        guard let querySortType = QuerySortType(rawValue: sender.tag) else { return }
+        
         sortButtonGroup.forEach {
             ($0.tag == sender.tag) ? ($0.isSelected = true) : ($0.isSelected = false)
+        }
+        
+        indicatorView.isHidden = false
+        
+        NaverSearchAPIManager.shared.search(sortedBy: querySortType) { result in
+            switch result {
+            case .success(let items):
+                self.queryResultItems = items
+            case .failure(let error):
+                self.presentErrorAlert(error)
+                self.queryResultItems = []
+            }
+            
+            self.indicatorView.isHidden = true
+            self.searchResultsCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+        }
+    }
+}
+
+extension ProductSearchingViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let keyword = searchBar.text else { return }
+        
+        sortButtonGroup.forEach { $0.isSelected = false }
+        sortButtonGroup.first?.isSelected = true
+        
+        placeholderView.isHidden = true
+        indicatorView.isHidden = false
+        
+        NaverSearchAPIManager.shared.search(for: keyword) { result in
+            switch result {
+            case .success(let items):
+                self.queryResultItems = items
+                
+                if items.isEmpty == false {
+                    self.searchResultsCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+                }
+            case .failure(let error):
+                self.presentErrorAlert(error)
+                self.queryResultItems = []
+            }
+            
+            self.indicatorView.isHidden = true
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        // TODO: network session 중단 코드
+    }
+}
+
+extension ProductSearchingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return queryResultItems.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MWCollectionViewCell.identifier, for: indexPath) as? MWCollectionViewCell else { return UICollectionViewCell() }
+        
+        cell.item = queryResultItems[indexPath.item]
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // TODO: WebView로 이동하는 코드 추가
+    }
+}
+
+extension ProductSearchingViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths where indexPath.item == queryResultItems.count - 2 {
+            
+            indicatorView.isHidden = false
+            
+            NaverSearchAPIManager.shared.search(nextPage: true) { result in
+                switch result {
+                case .success(let items):
+                    self.queryResultItems.append(contentsOf: items)
+                case .failure(let error):
+                    self.presentErrorAlert(error)
+                }
+                
+                self.indicatorView.isHidden = true
+            }
         }
     }
 }
