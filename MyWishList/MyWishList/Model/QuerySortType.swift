@@ -8,7 +8,7 @@
 import Foundation
 
 enum QuerySortType: Int, CaseIterable {
-    case accuracy
+    case accuracy = 1
     case date
     case ascending
     case descending
