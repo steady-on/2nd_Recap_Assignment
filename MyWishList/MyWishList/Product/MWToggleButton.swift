@@ -45,4 +45,10 @@ class MWToggleButton: UIButton {
         layer.borderWidth = 1
         contentEdgeInsets = .init(top: 6, left: 6, bottom: 6, right: 6)
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        layer.borderColor = color?.cgColor
+    }
 }
+
