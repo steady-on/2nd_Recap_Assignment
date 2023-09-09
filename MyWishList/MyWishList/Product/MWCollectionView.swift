@@ -10,13 +10,13 @@ import UIKit
 class MWCollectionView: BaseCollectionView {
 
     convenience init() {
-        self.init(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-        
-        self.collectionViewLayout = setCollectionViewLayout()
+        self.init(collectionViewLayout: UICollectionViewLayout())
     }
     
     override func configure() {
         super.configure()
+        
+        self.collectionViewLayout = setCollectionViewLayout()
         
         register(MWCollectionViewCell.self, forCellWithReuseIdentifier: MWCollectionViewCell.identifier)
     }
