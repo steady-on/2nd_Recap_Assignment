@@ -33,7 +33,10 @@ struct Item: Codable {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         
-        title = try container.decode(String.self, forKey: .title)
+        var originTitle = try container.decode(String.self, forKey: .title)
+        originTitle = originTitle.replacingOccurrences(of: "<b>", with: "")
+        title = originTitle.replacingOccurrences(of: "</b>", with: "")
+        
         link = try container.decode(String.self, forKey: .link)
         image = try container.decode(String.self, forKey: .image)
         mallName = try container.decode(String.self, forKey: .mallName)
