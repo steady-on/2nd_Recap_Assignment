@@ -8,12 +8,8 @@
 import UIKit
 
 class BaseView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    convenience init() {
-        self.init(frame: .zero)
+    init() {
+        super.init(frame: .zero)
         
         configure()
         setConstraints()

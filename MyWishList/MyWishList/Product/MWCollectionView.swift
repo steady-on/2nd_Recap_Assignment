@@ -8,9 +8,9 @@
 import UIKit
 
 class MWCollectionView: BaseCollectionView {
-
-    convenience init() {
-        self.init(collectionViewLayout: UICollectionViewLayout())
+    
+    init() {
+        super.init(collectionViewLayout: UICollectionViewLayout())
     }
     
     override func configure() {

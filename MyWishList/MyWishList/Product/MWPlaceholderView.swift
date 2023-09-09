@@ -26,8 +26,8 @@ class MWPlaceholderView: BaseView {
         return label
     }()
     
-    convenience init(symbolName: String, guideText: String) {
-        self.init()
+    init(symbolName: String, guideText: String) {
+        super.init()
         
         symbolImageView.image = UIImage(systemName: symbolName)
         guideTextLabel.text = guideText
