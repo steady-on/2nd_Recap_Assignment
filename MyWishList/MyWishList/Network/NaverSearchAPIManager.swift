@@ -26,7 +26,7 @@ final class NaverSearchAPIManager {
     
     func search(for keyword: String? = nil, sortedBy sortType: QuerySortType? = nil, nextPage: Bool = false, completionHandler: @escaping (Result<[Item], NetworkError>) -> ()) {
         guard var urlComponents = URLComponents(string: baseURL) else {
-            completionHandler(.failure(.invalidRequestError))
+            completionHandler(.failure(.invalidRequest))
             return
         }
         
@@ -68,7 +68,7 @@ final class NaverSearchAPIManager {
     
     private func performRequest<T: Codable>(for urlComponents: URLComponents, completionHandler: @escaping (Result<T, NetworkError>) -> ()) {
         guard let url = urlComponents.url else {
-            completionHandler(.failure(.invalidRequestError))
+            completionHandler(.failure(.invalidRequest))
             return
         }
         
@@ -93,12 +93,12 @@ final class NaverSearchAPIManager {
                     return
                 }
                 
-                completionHandler(.failure(.invalidRequestError))
+                completionHandler(.failure(.invalidRequest))
                 return
             }
             
             guard let decodedData: T = self.parseJSON(data) else {
-                completionHandler(.failure(.jsonParseError))
+                completionHandler(.failure(.failToParseJSON))
                 return
             }
             
