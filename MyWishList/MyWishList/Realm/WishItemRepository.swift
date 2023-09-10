@@ -44,13 +44,9 @@ final class WishItemRepository {
         return false
     }
     
-    func updateItem(for changes: [String : String]) throws {
-        do {
-            try realm.write {
-                realm.create(WishItem.self, value: changes, update: .modified)
-            }
-        } catch {
-            throw RealmError.failToUpdateItem
+    func updateItemImageData(for item: WishItem, imageData: Data?) {
+        try! realm.write {
+            item.imageData = imageData
         }
     }
     
