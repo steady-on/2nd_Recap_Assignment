@@ -15,7 +15,7 @@ final class WishItem: Object {
     @Persisted var link: String
     @Persisted var priceInt: Int
     @Persisted var priceString: String
-    @Persisted var image: Data
+    @Persisted var image: Data?
     @Persisted var addedAt: Date
     
     convenience init(
@@ -25,7 +25,7 @@ final class WishItem: Object {
         link: String,
         priceInt: Int,
         priceString: String,
-        image: Data) {
+        image: Data?) {
             
         self.init()
 
@@ -39,7 +39,7 @@ final class WishItem: Object {
         self.addedAt = Date()
     }
     
-    convenience init(from item: Item, imageData: Data) {
+    convenience init(from item: Item, imageData: Data?) {
         self.init(
             productID: item.productID,
             title: item.title,
