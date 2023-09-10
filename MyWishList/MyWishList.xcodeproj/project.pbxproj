@@ -15,6 +15,7 @@
 		636AA0B32AAD0A600046324A /* ProductDetailWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0B22AAD0A600046324A /* ProductDetailWebViewController.swift */; };
 		636AA0B72AAD65190046324A /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 636AA0B62AAD65190046324A /* Realm */; };
 		636AA0B92AAD65190046324A /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 636AA0B82AAD65190046324A /* RealmSwift */; };
+		636AA0BD2AAD6E4D0046324A /* WishList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0BC2AAD6E4C0046324A /* WishList.swift */; };
 		63BEC8E92AA9E54500E37EAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8E82AA9E54500E37EAC /* AppDelegate.swift */; };
 		63BEC8EB2AA9E54500E37EAC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8EA2AA9E54500E37EAC /* SceneDelegate.swift */; };
 		63BEC8ED2AA9E54500E37EAC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8EC2AA9E54500E37EAC /* ViewController.swift */; };
@@ -43,6 +44,7 @@
 		636AA0A72AACCB510046324A /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		636AA0AA2AACD0EE0046324A /* MWPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWPlaceholderView.swift; sourceTree = "<group>"; };
 		636AA0B22AAD0A600046324A /* ProductDetailWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailWebViewController.swift; sourceTree = "<group>"; };
+		636AA0BC2AAD6E4C0046324A /* WishList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishList.swift; sourceTree = "<group>"; };
 		63BEC8E52AA9E54500E37EAC /* MyWishList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWishList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63BEC8E82AA9E54500E37EAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63BEC8EA2AA9E54500E37EAC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,14 @@
 				636AA0B22AAD0A600046324A /* ProductDetailWebViewController.swift */,
 			);
 			path = Scene;
+			sourceTree = "<group>";
+		};
+		636AA0B42AAD649E0046324A /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				636AA0BC2AAD6E4C0046324A /* WishList.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		63BEC8DC2AA9E54500E37EAC = {
@@ -270,6 +280,7 @@
 				63BEC8E92AA9E54500E37EAC /* AppDelegate.swift in Sources */,
 				63BEC8FE2AA9E81500E37EAC /* APIKey.swift in Sources */,
 				63BEC92C2AAB33BD00E37EAC /* UIImageView+.swift in Sources */,
+				636AA0BD2AAD6E4D0046324A /* WishList.swift in Sources */,
 				63BEC91F2AAB04B500E37EAC /* BaseCollectionViewCell.swift in Sources */,
 				636AA0A42AACA3190046324A /* ProductSearchingViewController.swift in Sources */,
 				63BEC9212AAB0BAE00E37EAC /* BaseCollectionView.swift in Sources */,
