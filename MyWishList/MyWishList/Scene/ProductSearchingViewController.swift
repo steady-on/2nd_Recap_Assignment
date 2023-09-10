@@ -80,6 +80,7 @@ class ProductSearchingViewController: BaseViewController {
         searchResultsCollectionView.prefetchDataSource = self
         
         composeView()
+        searchResultsCollectionView.keyboardDismissMode = .onDrag
         webSearchBar.becomeFirstResponder()
     }
     
@@ -125,7 +126,8 @@ class ProductSearchingViewController: BaseViewController {
         ])
     }
     
-    @objc func sortButtonTapped(_ sender: UIButton) {
+    @objc private func sortButtonTapped(_ sender: UIButton) {
+        webSearchBar.resignFirstResponder()
         
         sortButtonGroup.forEach {
             ($0.tag == sender.tag) ? ($0.isSelected = true) : ($0.isSelected = false)
@@ -168,6 +170,7 @@ class ProductSearchingViewController: BaseViewController {
 extension ProductSearchingViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let keyword = searchBar.text else { return }
+        webSearchBar.resignFirstResponder()
         
         sortButtonGroup.forEach { $0.isSelected = false }
         sortButtonGroup.first?.isSelected = true
