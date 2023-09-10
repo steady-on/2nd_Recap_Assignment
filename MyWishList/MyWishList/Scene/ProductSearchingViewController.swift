@@ -70,6 +70,9 @@ class ProductSearchingViewController: BaseViewController {
         super.viewDidLoad()
         
         definesPresentationContext = true
+        
+        let realm = try! Realm()
+        print(realm.configuration.fileURL)
     }
 
     override func configure() {
@@ -231,16 +234,40 @@ extension ProductSearchingViewController: UICollectionViewDelegate, UICollection
         let item = queryResultItems[indexPath.item]
         
         let productDetailWebView = ProductDetailWebViewController(link: item.link)
+        productDetailWebView.toggleWishButtonCompletionHandler = {
+            if self.queryResultItems[indexPath.item].isInWishList {
+                do {
+                    try self.wishItemRepository.delete(for: item.productID)
+                } catch {
+                    self.presentErrorAlert(error)
+                }
+            } else {
+                do {
+                    try self.wishItemRepository.createItem(from: item, imageData: nil)
+                } catch {
+                    self.presentErrorAlert(error)
+                }
+            }
+            
+            self.queryResultItems[indexPath.item].isInWishList.toggle()
+            
+            let image = self.queryResultItems[indexPath.item].isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+            productDetailWebView.navigationItem.rightBarButtonItem?.image = image
+        }
+        
         productDetailWebView.title = item.title
         
         let image = item.isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-        productDetailWebView.navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(temp))
+        let toggleWishButton = UIBarButtonItem()
+        toggleWishButton.image = image
+        toggleWishButton.tintColor = .label
+        
+        productDetailWebView.navigationItem.rightBarButtonItem = toggleWishButton
+        
         navigationController?.pushViewController(productDetailWebView, animated: true)
     }
     
-    @objc func temp() {
-        
-    }
+    
 }
 
 extension ProductSearchingViewController: UICollectionViewDataSourcePrefetching {
