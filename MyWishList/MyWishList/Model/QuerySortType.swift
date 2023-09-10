@@ -13,6 +13,10 @@ enum QuerySortType: Int, CaseIterable {
     case ascending
     case descending
     
+    init(from rawValue: Int) {
+        self = QuerySortType(rawValue: rawValue) ?? .accuracy
+    }
+    
     var value: String {
         switch self {
         case .accuracy: return "sim"
