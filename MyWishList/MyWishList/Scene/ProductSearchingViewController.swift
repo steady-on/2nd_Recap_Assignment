@@ -126,7 +126,6 @@ class ProductSearchingViewController: BaseViewController {
     }
     
     @objc func sortButtonTapped(_ sender: UIButton) {
-        guard let querySortType = QuerySortType(rawValue: sender.tag) else { return }
         
         sortButtonGroup.forEach {
             ($0.tag == sender.tag) ? ($0.isSelected = true) : ($0.isSelected = false)
@@ -134,6 +133,7 @@ class ProductSearchingViewController: BaseViewController {
         
         indicatorView.isHidden = false
         
+        let querySortType = QuerySortType(from: sender.tag)
         NaverSearchAPIManager.shared.search(sortedBy: querySortType) { result in
             switch result {
             case .success(let items):
