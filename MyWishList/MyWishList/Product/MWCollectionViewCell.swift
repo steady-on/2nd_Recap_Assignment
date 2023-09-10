@@ -97,6 +97,7 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         mallNameLabel.text = nil
         titleLabel.text = nil
         priceLabel.text = nil
+        toggleWishButton.setImage(nil, for: .normal)
     }
     
     override func configureView() {

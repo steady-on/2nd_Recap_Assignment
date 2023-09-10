@@ -32,17 +32,22 @@ final class NaverSearchAPIManager {
         
         urlComponents.queryItems = configureParameters(keyword: keyword, sortType: sortType, nextPage: nextPage)
         
+        guard start != total else {
+            completionHandler(.success([]))
+            return
+        }
+        
         performRequest(for: urlComponents) { (result: Result<QueryResult, NetworkError>) in
-            switch result {
-            case .success(let queryResult):
-                self.total = queryResult.total <= 1000 ? queryResult.total : 1000
-                
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let queryResult):
+                    self.total = queryResult.total <= 1000 ? queryResult.total : 1000
+                    
                     completionHandler(.success(queryResult.items))
+                    
+                case .failure(let error):
+                    completionHandler(.failure(error))
                 }
-                
-            case .failure(let error):
-                completionHandler(.failure(error))
             }
         }
     }
