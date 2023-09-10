@@ -79,20 +79,7 @@ class ProductSearchingViewController: BaseViewController {
         searchResultsCollectionView.dataSource = self
         searchResultsCollectionView.prefetchDataSource = self
         
-        let components = [webSearchBar, sortButtonStackView, searchResultsCollectionView, indicatorView, placeholderView, noResultView]
-        components.forEach {
-            view.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
-
-        indicatorView.isHidden = true
-        noResultView.isHidden = true
-        
-        sortButtonGroup.forEach {
-            sortButtonStackView.addArrangedSubview($0)
-            $0.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
-        }
-        
+        composeView()
         webSearchBar.becomeFirstResponder()
     }
     
@@ -158,6 +145,22 @@ class ProductSearchingViewController: BaseViewController {
             
             self.indicatorView.isHidden = true
             self.searchResultsCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+        }
+    }
+    
+    private func composeView() {
+        let components = [webSearchBar, sortButtonStackView, searchResultsCollectionView, indicatorView, placeholderView, noResultView]
+        components.forEach {
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
+        indicatorView.isHidden = true
+        noResultView.isHidden = true
+        
+        sortButtonGroup.forEach {
+            sortButtonStackView.addArrangedSubview($0)
+            $0.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
         }
     }
 }
