@@ -10,11 +10,9 @@ import RealmSwift
 
 final class WishItemRepository {
     
-    private var realm: Realm? = try? Realm()
+    private var realm = try! Realm()
     
     func createItem(from data: Item, imageData: Data?) throws {
-        guard let realm else { throw RealmError.notInitialized }
-        
         let newWish = WishItem(from: data, imageData: imageData)
         do {
             try realm.write { realm.add(newWish) }
@@ -23,16 +21,22 @@ final class WishItemRepository {
         }
     }
     
-    func fetchTable() throws -> Results<WishItem> {
-        guard let realm else { throw RealmError.notInitialized }
-        
+    func fetchTable() -> Results<WishItem> {
         let data = realm.objects(WishItem.self).sorted(byKeyPath: "addedAt", ascending: false)
         return data
     }
     
-    func checkItemInTable(for id: String) throws -> Bool {
-        guard let realm else { throw RealmError.notInitialized }
-        
+    func checkItemsInTable(for items: [Item]) -> [Item] {
+        let examinedItems = items.map { item in
+            var item = item
+            item.isInWishList = checkItemInTable(for: item.productID)
+            return item
+        }
+
+        return examinedItems
+    }
+    
+    func checkItemInTable(for id: String) -> Bool {
         if realm.object(ofType: WishItem.self, forPrimaryKey: id) != nil {
             return true
         }
@@ -41,8 +45,6 @@ final class WishItemRepository {
     }
     
     func updateItem(for changes: [String : String]) throws {
-        guard let realm else { throw RealmError.notInitialized }
-        
         do {
             try realm.write {
                 realm.create(WishItem.self, value: changes, update: .modified)
@@ -53,8 +55,6 @@ final class WishItemRepository {
     }
     
     func delete(_ item: WishItem) throws {
-        guard let realm else { throw RealmError.notInitialized }
-        
         do {
             try realm.write { realm.delete(item) }
         } catch {
@@ -63,7 +63,6 @@ final class WishItemRepository {
     }
     
     func delete(for id: String) throws {
-        guard let realm else { throw RealmError.notInitialized }
         guard let selectedItem = realm.object(ofType: WishItem.self, forPrimaryKey: id) else { throw RealmError.failToQuery }
         
         do {
