@@ -1,5 +1,5 @@
 //
-//  WishList.swift
+//  WishItem.swift
 //  MyWishList
 //
 //  Created by Roen White on 2023/09/10.
@@ -8,9 +8,8 @@
 import Foundation
 import RealmSwift
 
-final class WishList: Object {
-    @Persisted(primaryKey: true) var _id: ObjectId
-    @Persisted(indexed: true) var productID: String
+final class WishItem: Object {
+    @Persisted(primaryKey: true) var productID: String
     @Persisted var title: String
     @Persisted var mallName: String
     @Persisted var link: String
@@ -19,7 +18,15 @@ final class WishList: Object {
     @Persisted var image: Data
     @Persisted var addedAt: Date
     
-    convenience init(productID: String, title: String, mallName: String, link: String, priceInt: Int, priceString: String, image: Data) {
+    convenience init(
+        productID: String,
+        title: String,
+        mallName: String,
+        link: String,
+        priceInt: Int,
+        priceString: String,
+        image: Data) {
+            
         self.init()
 
         self.productID = productID
