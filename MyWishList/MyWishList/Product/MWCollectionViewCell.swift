@@ -8,6 +8,9 @@
 import UIKit
 
 class MWCollectionViewCell: BaseCollectionViewCell {
+    
+    private lazy var wishItemRepository = WishItemRepository()
+    
     var item: Item? {
         didSet {
             guard let item else { return }
@@ -20,6 +23,8 @@ class MWCollectionViewCell: BaseCollectionViewCell {
             priceLabel.text = item.priceString
         }
     }
+    
+    var toggleWishButtonCompletionHanler: ((Result<Bool,Error>) -> ())!
     
     private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
@@ -90,6 +95,8 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         stackComponents.forEach { component in
             infoTextStackView.addArrangedSubview(component)
         }
+        
+        toggleWishButton.addTarget(self, action: #selector(toggleWishButtonTapped), for: .touchUpInside)
     }
     
     override func setConstraints() {
@@ -113,5 +120,29 @@ class MWCollectionViewCell: BaseCollectionViewCell {
             infoTextStackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
             infoTextStackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor)
         ])
+    }
+    
+    @objc private func toggleWishButtonTapped() {
+        guard let item else { return }
+        
+        if item.isInWishList {
+            do {
+                try wishItemRepository.delete(for: item.productID)
+                toggleWishButtonCompletionHanler(.success(true))
+            } catch {
+                toggleWishButtonCompletionHanler(.failure(error))
+            }
+            
+            return
+        }
+        
+        let imageData = productImageView.image?.jpegData(compressionQuality: 0.5)
+        
+        do {
+            try wishItemRepository.createItem(from: item, imageData: imageData)
+            toggleWishButtonCompletionHanler(.success(true))
+        } catch {
+            toggleWishButtonCompletionHanler(.failure(error))
+        }
     }
 }
