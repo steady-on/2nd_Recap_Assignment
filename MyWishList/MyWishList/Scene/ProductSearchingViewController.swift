@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ProductSearchingViewController: BaseViewController {
+    
+    lazy var wishItemRepository = WishItemRepository()
     
     private var queryResultItems = [Item]() {
         didSet {
@@ -139,7 +142,8 @@ class ProductSearchingViewController: BaseViewController {
         NaverSearchAPIManager.shared.search(sortedBy: querySortType) { result in
             switch result {
             case .success(let items):
-                self.queryResultItems = items
+                let fetchedItems = self.wishItemRepository.checkItemsInTable(for: items)
+                self.queryResultItems = fetchedItems
             case .failure(let error):
                 self.presentErrorAlert(error)
                 self.queryResultItems = []
@@ -181,14 +185,15 @@ extension ProductSearchingViewController: UISearchBarDelegate {
         NaverSearchAPIManager.shared.search(for: keyword) { result in
             switch result {
             case .success(let items):
-                self.queryResultItems = items
-                
                 if items.isEmpty == false {
+                    let fetchedItems = self.wishItemRepository.checkItemsInTable(for: items)
+                    self.queryResultItems = fetchedItems
+                    
                     self.searchResultsCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
                 }
             case .failure(let error):
-                self.presentErrorAlert(error)
                 self.queryResultItems = []
+                self.presentErrorAlert(error)
             }
             
             self.indicatorView.isHidden = true
@@ -238,7 +243,8 @@ extension ProductSearchingViewController: UICollectionViewDataSourcePrefetching 
             NaverSearchAPIManager.shared.search(nextPage: true) { result in
                 switch result {
                 case .success(let items):
-                    self.queryResultItems.append(contentsOf: items)
+                    let fetchedItems = self.wishItemRepository.checkItemsInTable(for: items)
+                    self.queryResultItems.append(contentsOf: fetchedItems)
                 case .failure(let error):
                     self.presentErrorAlert(error)
                 }
