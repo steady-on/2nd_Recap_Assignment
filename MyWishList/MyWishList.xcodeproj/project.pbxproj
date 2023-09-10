@@ -16,6 +16,7 @@
 		636AA0B72AAD65190046324A /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 636AA0B62AAD65190046324A /* Realm */; };
 		636AA0B92AAD65190046324A /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 636AA0B82AAD65190046324A /* RealmSwift */; };
 		636AA0BD2AAD6E4D0046324A /* WishItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0BC2AAD6E4C0046324A /* WishItem.swift */; };
+		636AA0C12AAD9C010046324A /* RealmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0C02AAD9C010046324A /* RealmError.swift */; };
 		63BEC8E92AA9E54500E37EAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8E82AA9E54500E37EAC /* AppDelegate.swift */; };
 		63BEC8EB2AA9E54500E37EAC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8EA2AA9E54500E37EAC /* SceneDelegate.swift */; };
 		63BEC8ED2AA9E54500E37EAC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8EC2AA9E54500E37EAC /* ViewController.swift */; };
@@ -45,6 +46,7 @@
 		636AA0AA2AACD0EE0046324A /* MWPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWPlaceholderView.swift; sourceTree = "<group>"; };
 		636AA0B22AAD0A600046324A /* ProductDetailWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailWebViewController.swift; sourceTree = "<group>"; };
 		636AA0BC2AAD6E4C0046324A /* WishItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishItem.swift; sourceTree = "<group>"; };
+		636AA0C02AAD9C010046324A /* RealmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmError.swift; sourceTree = "<group>"; };
 		63BEC8E52AA9E54500E37EAC /* MyWishList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWishList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63BEC8E82AA9E54500E37EAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63BEC8EA2AA9E54500E37EAC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				63BEC9052AA9F1A100E37EAC /* NetworkError.swift */,
+				636AA0C02AAD9C010046324A /* RealmError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				63BEC9242AAB21EC00E37EAC /* MWCollectionView.swift in Sources */,
 				63BEC91B2AAAFE7600E37EAC /* BaseViewController.swift in Sources */,
 				63BEC9032AA9EACC00E37EAC /* QueryResult.swift in Sources */,
+				636AA0C12AAD9C010046324A /* RealmError.swift in Sources */,
 				63BEC9082AAA205100E37EAC /* QuerySortType.swift in Sources */,
 				636AA0B32AAD0A600046324A /* ProductDetailWebViewController.swift in Sources */,
 				63BEC90B2AAA21F500E37EAC /* URLQueryItem+.swift in Sources */,
