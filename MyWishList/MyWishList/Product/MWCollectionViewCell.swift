@@ -24,6 +24,25 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
+    var wishItem: WishItem? {
+        didSet {
+            guard let wishItem else { return }
+            
+            if let imageData = wishItem.imageData {
+                productImageView.image = UIImage(data: imageData)
+            } else {
+                productImageView.loadImage(from: wishItem.imageLink)
+                saveImageData()
+            }
+            
+            let buttonImage = UIImage(systemName: "heart.fill")
+            toggleWishButton.setImage(buttonImage, for: .normal)
+            mallNameLabel.text = "[" + wishItem.mallName + "]"
+            titleLabel.text = wishItem.title
+            priceLabel.text = wishItem.priceString
+        }
+    }
+    
     var toggleWishButtonCompletionHanler: ((Result<Bool,Error>) -> ())!
     
     private lazy var productImageView: UIImageView = {
@@ -123,6 +142,16 @@ class MWCollectionViewCell: BaseCollectionViewCell {
     }
     
     @objc private func toggleWishButtonTapped() {
+        
+        if let wishItem {
+            do {
+                try wishItemRepository.delete(wishItem)
+                toggleWishButtonCompletionHanler(.success(true))
+            } catch {
+                toggleWishButtonCompletionHanler(.failure(error))
+            }
+        }
+        
         guard let item else { return }
         
         if item.isInWishList {
@@ -132,7 +161,6 @@ class MWCollectionViewCell: BaseCollectionViewCell {
             } catch {
                 toggleWishButtonCompletionHanler(.failure(error))
             }
-            
             return
         }
         
@@ -144,5 +172,12 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         } catch {
             toggleWishButtonCompletionHanler(.failure(error))
         }
+    }
+    
+    private func saveImageData() {
+        guard let wishItem else { return }
+        let imageData = productImageView.image?.jpegData(compressionQuality: 0.5)
+        
+        wishItemRepository.updateItemImageData(for: wishItem, imageData: imageData)
     }
 }
