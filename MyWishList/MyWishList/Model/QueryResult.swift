@@ -20,7 +20,7 @@ struct Item: Codable {
     let link: String
     let image: String
     let priceInt: Int
-    let isInWishList: Bool = false
+    var isInWishList: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case title, link, image, mallName
