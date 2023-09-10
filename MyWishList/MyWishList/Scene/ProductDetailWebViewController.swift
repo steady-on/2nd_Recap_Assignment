@@ -10,7 +10,9 @@ import WebKit
 
 class ProductDetailWebViewController: BaseViewController {
     
-    var link: String?
+    var link: String!
+    
+    var toggleWishButtonCompletionHandler: (() -> ())?
     
     private lazy var webView: WKWebView = WKWebView()
     
@@ -25,6 +27,7 @@ class ProductDetailWebViewController: BaseViewController {
     
     override func configure() {
         super.configure()
+        configureNavigationBar()
         
         guard let link, let url = URL(string: link) else { return }
         let request = URLRequest(url: url)
@@ -32,6 +35,15 @@ class ProductDetailWebViewController: BaseViewController {
         
         view.addSubview(webView)
         webView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.rightBarButtonItem?.target = self
+        navigationItem.rightBarButtonItem?.action = #selector(toggleWishButtonTapped)
+    }
+    
+    @objc private func toggleWishButtonTapped() {
+        toggleWishButtonCompletionHandler?()
     }
     
     override func setConstraints() {
