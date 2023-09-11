@@ -133,3 +133,21 @@ extension WishListViewController: UICollectionViewDelegate, UICollectionViewData
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let wishItem = wishList[indexPath.item]
+        
+        let productDetailWebView = ProductDetailWebViewController(link: wishItem.link, title: wishItem.title, isWish: true) { isInWish in
+            guard isInWish == false else { return }
+            
+            do {
+                try self.wishItemRepository.delete(wishItem)
+            } catch {
+                self.presentErrorAlert(error)
+            }
+            
+            collectionView.reloadData()
+        }
+        
+        navigationController?.pushViewController(productDetailWebView, animated: true)
+    }
+}
