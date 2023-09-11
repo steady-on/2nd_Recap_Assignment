@@ -21,6 +21,8 @@ class WishListViewController: BaseViewController {
         searchController.searchBar.showsCancelButton = true
         searchController.searchBar.returnKeyType = .go
         searchController.searchBar.tintColor = .label
+        searchController.searchBar.delegate = self
+        
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.searchResultsUpdater = self
@@ -113,6 +115,14 @@ class WishListViewController: BaseViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
     }
 }
+
+extension WishListViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        wishList = wishItemRepository.fetchTable()
+        wishListCollectionView.reloadData()
+    }
+}
+
 extension WishListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let keyword = searchController.searchBar.text else { return }
