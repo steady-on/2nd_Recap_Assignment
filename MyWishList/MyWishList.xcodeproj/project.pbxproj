@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		635078BF2AAF36E6008354EB /* MWToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635078BE2AAF36E6008354EB /* MWToastMessageView.swift */; };
 		636AA09F2AAC9F2E0046324A /* MWToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA09E2AAC9F2E0046324A /* MWToggleButton.swift */; };
 		636AA0A42AACA3190046324A /* ProductSearchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0A32AACA3190046324A /* ProductSearchingViewController.swift */; };
 		636AA0A62AACC4730046324A /* MWIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0A52AACC4730046324A /* MWIndicatorView.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		635078BE2AAF36E6008354EB /* MWToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWToastMessageView.swift; sourceTree = "<group>"; };
 		636AA09E2AAC9F2E0046324A /* MWToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWToggleButton.swift; sourceTree = "<group>"; };
 		636AA0A32AACA3190046324A /* ProductSearchingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSearchingViewController.swift; sourceTree = "<group>"; };
 		636AA0A52AACC4730046324A /* MWIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWIndicatorView.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				636AA09E2AAC9F2E0046324A /* MWToggleButton.swift */,
 				636AA0A52AACC4730046324A /* MWIndicatorView.swift */,
 				636AA0AA2AACD0EE0046324A /* MWPlaceholderView.swift */,
+				635078BE2AAF36E6008354EB /* MWToastMessageView.swift */,
 			);
 			path = Product;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			files = (
 				63BEC92E2AAB360F00E37EAC /* ReuseIdentifiable.swift in Sources */,
 				63BEC8ED2AA9E54500E37EAC /* MWTabBarController.swift in Sources */,
+				635078BF2AAF36E6008354EB /* MWToastMessageView.swift in Sources */,
 				636AA0A62AACC4730046324A /* MWIndicatorView.swift in Sources */,
 				636AA0C52AADB14B0046324A /* WishItemRepository.swift in Sources */,
 				636AA0AB2AACD0EE0046324A /* MWPlaceholderView.swift in Sources */,
