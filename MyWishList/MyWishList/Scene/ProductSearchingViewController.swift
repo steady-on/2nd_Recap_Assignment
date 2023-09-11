@@ -22,7 +22,6 @@ class ProductSearchingViewController: BaseViewController {
         searchBar.searchTextField.clearButtonMode = .always
         searchBar.tintColor = .label
         searchBar.delegate = self
-        searchBar.becomeFirstResponder()
         return searchBar
     }()
     
