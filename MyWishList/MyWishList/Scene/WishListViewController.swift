@@ -110,7 +110,7 @@ class WishListViewController: BaseViewController {
     }
     
     private func configureNavigationBar() {
-        title = "위시리스트"
+        title = "나의찜목록"
         navigationItem.searchController = wishListSearchController
         navigationItem.hidesSearchBarWhenScrolling = false
     }

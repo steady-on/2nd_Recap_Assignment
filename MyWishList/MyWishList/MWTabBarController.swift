@@ -24,7 +24,7 @@ class MWTabBarController: UITabBarController {
         productSearchingViewController.tabBarItem.title = "상품 검색"
         productSearchingViewController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
         
-        wishListViewController.tabBarItem.title = "위시리스트"
+        wishListViewController.tabBarItem.title = "나의찜목록"
         wishListViewController.tabBarItem.image = UIImage(systemName: "heart")
         wishListViewController.tabBarItem.selectedImage = UIImage(systemName: "heart.fill")
         
