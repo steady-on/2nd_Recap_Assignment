@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class WishListViewController: BaseViewController {
+    
+    private lazy var wishItemRepository = WishItemRepository()
+    
+    private var wishList: Results<WishItem>!
     
     private lazy var wishListSearchController: UISearchController = {
         let searchController = UISearchController()
@@ -44,11 +49,13 @@ class WishListViewController: BaseViewController {
     
     override func configure() {
         super.configure()
+        wishList = wishItemRepository.fetchTable()
         
         definesPresentationContext = true
         
         configureNavigationBar()
         composeView()
+        
     }
     
     override func setConstraints() {
@@ -91,6 +98,10 @@ class WishListViewController: BaseViewController {
         
         indicatorView.isHidden = true
         emptySearchResultView.isHidden = true
+        
+        if wishList.isEmpty == false {
+            emptyWishLishView.isHidden = true
+        }
     }
     
     private func configureNavigationBar() {
