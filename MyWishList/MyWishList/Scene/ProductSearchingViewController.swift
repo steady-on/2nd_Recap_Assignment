@@ -157,7 +157,7 @@ class ProductSearchingViewController: BaseViewController {
     }
     
     private func composeView() {
-        let components = [webSearchBar, sortButtonStackView, searchResultsCollectionView, indicatorView, placeholderView, noResultView]
+        let components = [webSearchBar, sortButtonStackView, searchResultsCollectionView, placeholderView, noResultView, indicatorView]
         components.forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
