@@ -26,6 +26,16 @@ final class WishItemRepository {
         return data
     }
     
+    func queryTable(for keyword: String) -> Results<WishItem> {
+        let wishList = fetchTable()
+        
+        let queryResult = wishList.where {
+            $0.title.contains(keyword, options: .caseInsensitive) || $0.title.contains(keyword, options: .diacriticInsensitive)
+        }.sorted(byKeyPath: "addedAt", ascending: false)
+        
+        return keyword.isEmpty ? wishList : queryResult
+    }
+    
     func checkItemsInTable(for items: [Item]) -> [Item] {
         let examinedItems = items.map { item in
             var item = item
