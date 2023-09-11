@@ -14,7 +14,13 @@ class MWCollectionViewCell: BaseCollectionViewCell {
     var item: Item? {
         didSet {
             guard let item else { return }
-            productImageView.loadImage(from: item.image)
+            
+            if let imageData = item.imageData {
+                productImageView.image = UIImage(data: imageData)
+            } else {
+                productImageView.loadImage(from: item.image)
+                saveImageData()
+            }
             
             let buttonImage = item.isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
             toggleWishButton.setImage(buttonImage, for: .normal)
@@ -43,7 +49,9 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    var toggleWishButtonCompletionHanler: ((Result<Bool,Error>) -> ())!
+    var saveImageDataCompletionHandler: ((Data?) -> ())?
+    
+    var toggleWishButtonCompletionHandler: ((Result<Bool,Error>) -> ())!
     
     private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
@@ -147,9 +155,9 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         if let wishItem {
             do {
                 try wishItemRepository.delete(wishItem)
-                toggleWishButtonCompletionHanler(.success(true))
+                toggleWishButtonCompletionHandler(.success(true))
             } catch {
-                toggleWishButtonCompletionHanler(.failure(error))
+                toggleWishButtonCompletionHandler(.failure(error))
             }
         }
         
@@ -158,9 +166,9 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         if item.isInWishList {
             do {
                 try wishItemRepository.delete(for: item.productID)
-                toggleWishButtonCompletionHanler(.success(true))
+                toggleWishButtonCompletionHandler(.success(true))
             } catch {
-                toggleWishButtonCompletionHanler(.failure(error))
+                toggleWishButtonCompletionHandler(.failure(error))
             }
             return
         }
@@ -169,16 +177,17 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         
         do {
             try wishItemRepository.createItem(from: item, imageData: imageData)
-            toggleWishButtonCompletionHanler(.success(true))
+            toggleWishButtonCompletionHandler(.success(true))
         } catch {
-            toggleWishButtonCompletionHanler(.failure(error))
+            toggleWishButtonCompletionHandler(.failure(error))
         }
     }
     
     private func saveImageData() {
-        guard let wishItem else { return }
         let imageData = productImageView.image?.jpegData(compressionQuality: 0.5)
+        saveImageDataCompletionHandler?(imageData)
         
+        guard let wishItem else { return }
         wishItemRepository.updateItemImageData(for: wishItem, imageData: imageData)
     }
 }

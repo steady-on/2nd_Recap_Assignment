@@ -37,21 +37,22 @@ final class WishItemRepository {
     }
     
     func checkItemsInTable(for items: [Item]) -> [Item] {
-        let examinedItems = items.map { item in
+        let syncedItems = items.map { item in
             var item = item
-            item.isInWishList = checkItemInTable(for: item.productID)
+            
+            if let existedItem = checkItemInTable(for: item.productID) {
+                item.isInWishList = true
+                item.imageData = existedItem.imageData
+            }
+
             return item
         }
 
-        return examinedItems
+        return syncedItems
     }
     
-    func checkItemInTable(for id: String) -> Bool {
-        if realm.object(ofType: WishItem.self, forPrimaryKey: id) != nil {
-            return true
-        }
-        
-        return false
+    func checkItemInTable(for id: String) -> WishItem? {
+        return realm.object(ofType: WishItem.self, forPrimaryKey: id)
     }
     
     func updateItemImageData(for item: WishItem, imageData: Data?) {

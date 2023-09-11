@@ -233,7 +233,12 @@ extension ProductSearchingViewController: UICollectionViewDelegate, UICollection
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MWCollectionViewCell.identifier, for: indexPath) as? MWCollectionViewCell else { return UICollectionViewCell() }
         
         cell.item = queryResultItems[indexPath.item]
-        cell.toggleWishButtonCompletionHanler = { result in
+        
+        cell.saveImageDataCompletionHandler = { data in
+            self.queryResultItems[indexPath.item].imageData = data
+        }
+        
+        cell.toggleWishButtonCompletionHandler = { result in
             switch result {
             case .success(_):
                 self.queryResultItems[indexPath.item].isInWishList.toggle()

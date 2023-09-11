@@ -21,6 +21,7 @@ struct Item: Codable {
     let image: String
     let priceInt: Int
     var isInWishList: Bool = false
+    var imageData: Data?
 
     enum CodingKeys: String, CodingKey {
         case title, link, image, mallName

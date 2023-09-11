@@ -163,7 +163,7 @@ extension WishListViewController: UICollectionViewDelegate, UICollectionViewData
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MWCollectionViewCell.identifier, for: indexPath) as? MWCollectionViewCell else { return UICollectionViewCell() }
         
         cell.wishItem = wishList[indexPath.item]
-        cell.toggleWishButtonCompletionHanler = { result in
+        cell.toggleWishButtonCompletionHandler = { result in
             switch result {
             case .success(_):
                 collectionView.reloadData()
