@@ -32,6 +32,8 @@ class WishListViewController: BaseViewController {
     
     private lazy var wishListCollectionView: MWCollectionView = {
         let collectionView = MWCollectionView()
+        collectionView.delegate = self
+        collectionView.dataSource = self
         return collectionView
     }()
     
@@ -110,3 +112,24 @@ class WishListViewController: BaseViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
     }
 }
+extension WishListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return wishList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MWCollectionViewCell.identifier, for: indexPath) as? MWCollectionViewCell else { return UICollectionViewCell() }
+        
+        cell.wishItem = wishList[indexPath.item]
+        cell.toggleWishButtonCompletionHanler = { result in
+            switch result {
+            case .success(_):
+                collectionView.reloadData()
+            case .failure(let error):
+                self.presentErrorAlert(error)
+            }
+        }
+        
+        return cell
+    }
+    
