@@ -23,6 +23,7 @@ class WishListViewController: BaseViewController {
         searchController.searchBar.tintColor = .label
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = true
+        searchController.searchResultsUpdater = self
         return searchController
     }()
     
@@ -112,6 +113,15 @@ class WishListViewController: BaseViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
     }
 }
+extension WishListViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let keyword = searchController.searchBar.text else { return }
+        
+        wishList = wishItemRepository.queryTable(for: keyword)
+        wishListCollectionView.reloadData()
+    }
+}
+
 extension WishListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return wishList.count
