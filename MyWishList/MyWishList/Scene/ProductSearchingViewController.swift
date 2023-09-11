@@ -26,6 +26,8 @@ class ProductSearchingViewController: BaseViewController {
         searchBar.returnKeyType = .go
         searchBar.searchTextField.clearButtonMode = .always
         searchBar.tintColor = .label
+        searchBar.delegate = self
+        searchBar.becomeFirstResponder()
         return searchBar
     }()
     
@@ -51,7 +53,12 @@ class ProductSearchingViewController: BaseViewController {
     }()
     
     private lazy var searchResultsCollectionView: MWCollectionView = {
-        return MWCollectionView()
+        let collectionView = MWCollectionView()
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.prefetchDataSource = self
+        collectionView.keyboardDismissMode = .onDrag
+        return collectionView
     }()
     
     private lazy var indicatorView: MWIndicatorView = {
@@ -69,8 +76,6 @@ class ProductSearchingViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        definesPresentationContext = true
-        
         let realm = try! Realm()
         print(realm.configuration.fileURL)
     }
@@ -78,16 +83,10 @@ class ProductSearchingViewController: BaseViewController {
     override func configure() {
         super.configure()
         
+        definesPresentationContext = true
         title = "상품 검색"
         
-        webSearchBar.delegate = self
-        searchResultsCollectionView.delegate = self
-        searchResultsCollectionView.dataSource = self
-        searchResultsCollectionView.prefetchDataSource = self
-        
         composeView()
-        searchResultsCollectionView.keyboardDismissMode = .onDrag
-        webSearchBar.becomeFirstResponder()
     }
     
     override func setConstraints() {
@@ -266,8 +265,6 @@ extension ProductSearchingViewController: UICollectionViewDelegate, UICollection
         
         navigationController?.pushViewController(productDetailWebView, animated: true)
     }
-    
-    
 }
 
 extension ProductSearchingViewController: UICollectionViewDataSourcePrefetching {
