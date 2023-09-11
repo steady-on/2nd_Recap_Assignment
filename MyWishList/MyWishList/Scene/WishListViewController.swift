@@ -117,6 +117,28 @@ class WishListViewController: BaseViewController {
 }
 
 extension WishListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBar.text = searchText == " " ? "" : searchText
+        
+        var trimmedSuffixString = searchText
+        
+        if searchText.hasSuffix("  ") {
+            trimmedSuffixString.removeLast()
+        }
+        
+        searchBar.text = trimmedSuffixString
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let keyword = searchBar.text else { return }
+        
+        let trimmedKeyword = keyword.trimmingCharacters(in: .whitespaces)
+        searchBar.text = trimmedKeyword
+        
+        wishList = wishItemRepository.queryTable(for: keyword)
+        wishListCollectionView.reloadData()
+    }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         wishList = wishItemRepository.fetchTable()
         wishListCollectionView.reloadData()

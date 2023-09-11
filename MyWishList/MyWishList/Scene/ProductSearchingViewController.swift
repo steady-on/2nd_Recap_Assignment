@@ -179,9 +179,24 @@ class ProductSearchingViewController: BaseViewController {
 }
 
 extension ProductSearchingViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBar.text = searchText == " " ? "" : searchText
+        
+        var trimmedSuffixString = searchText
+        
+        if searchText.hasSuffix("  ") {
+            trimmedSuffixString.removeLast()
+        }
+        
+        searchBar.text = trimmedSuffixString
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let keyword = searchBar.text else { return }
         webSearchBar.resignFirstResponder()
+        
+        let trimmedKeyword = keyword.trimmingCharacters(in: .whitespaces)
+        searchBar.text = trimmedKeyword
         
         sortButtonGroup.forEach { $0.isSelected = false }
         sortButtonGroup.first?.isSelected = true
@@ -189,7 +204,7 @@ extension ProductSearchingViewController: UISearchBarDelegate {
         placeholderView.isHidden = true
         indicatorView.isHidden = false
         
-        NaverSearchAPIManager.shared.search(for: keyword) { result in
+        NaverSearchAPIManager.shared.search(for: trimmedKeyword) { result in
             switch result {
             case .success(let items):
                 let fetchedItems = self.wishItemRepository.checkItemsInTable(for: items)
@@ -204,7 +219,8 @@ extension ProductSearchingViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        // TODO: network session 중단 코드
+        webSearchBar.resignFirstResponder()
+        
     }
 }
 
