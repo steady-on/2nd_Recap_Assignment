@@ -43,6 +43,8 @@ final class WishItemRepository {
             if let existedItem = checkItemInTable(for: item.productID) {
                 item.isInWishList = true
                 item.imageData = existedItem.imageData
+            } else {
+                item.isInWishList = false
             }
 
             return item

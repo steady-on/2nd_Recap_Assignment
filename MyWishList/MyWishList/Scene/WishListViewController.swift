@@ -60,6 +60,8 @@ class WishListViewController: BaseViewController {
         if wishList.isEmpty == false {
             emptyWishLishView.isHidden = true
         }
+        
+        wishListCollectionView.reloadData()
     }
     
     override func configure() {

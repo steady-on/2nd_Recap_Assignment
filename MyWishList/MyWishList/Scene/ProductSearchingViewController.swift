@@ -69,9 +69,13 @@ class ProductSearchingViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let realm = try! Realm()
-        print(realm.configuration.fileURL)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        queryResultItems = wishItemRepository.checkItemsInTable(for: queryResultItems)
+        searchResultsCollectionView.reloadData()
     }
 
     override func configure() {
