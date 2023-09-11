@@ -52,15 +52,23 @@ class WishListViewController: BaseViewController {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        wishList = wishItemRepository.fetchTable()
+        
+        if wishList.isEmpty == false {
+            emptyWishLishView.isHidden = true
+        }
+    }
+    
     override func configure() {
         super.configure()
-        wishList = wishItemRepository.fetchTable()
         
         definesPresentationContext = true
         
         configureNavigationBar()
         composeView()
-        
     }
     
     override func setConstraints() {
@@ -103,10 +111,6 @@ class WishListViewController: BaseViewController {
         
         indicatorView.isHidden = true
         emptySearchResultView.isHidden = true
-        
-        if wishList.isEmpty == false {
-            emptyWishLishView.isHidden = true
-        }
     }
     
     private func configureNavigationBar() {
@@ -169,6 +173,10 @@ extension WishListViewController: UICollectionViewDelegate, UICollectionViewData
                 collectionView.reloadData()
             case .failure(let error):
                 self.presentErrorAlert(error)
+            }
+            
+            if self.wishList.isEmpty {
+                self.emptyWishLishView.isHidden = false
             }
         }
         
