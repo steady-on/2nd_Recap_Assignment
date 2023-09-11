@@ -14,7 +14,7 @@ class ProductSearchingViewController: BaseViewController {
     
     private var queryResultItems = [Item]() {
         didSet {
-            noResultView.isHidden = !queryResultItems.isEmpty
+            emptySearchResultView.isHidden = !queryResultItems.isEmpty
             searchResultsCollectionView.reloadData()
         }
     }
@@ -69,7 +69,7 @@ class ProductSearchingViewController: BaseViewController {
         return MWPlaceholderView(symbolName: "magnifyingglass", guideText: "원하는 상품을 검색해 주세요!")
     }()
     
-    private lazy var noResultView: MWPlaceholderView = {
+    private lazy var emptySearchResultView: MWPlaceholderView = {
         return MWPlaceholderView(symbolName: "questionmark", guideText: "검색 결과가 없습니다. \n다른 검색어로 다시 시도해 주세요.")
     }()
     
@@ -124,10 +124,10 @@ class ProductSearchingViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            noResultView.topAnchor.constraint(equalTo: webSearchBar.bottomAnchor),
-            noResultView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            noResultView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            noResultView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            emptySearchResultView.topAnchor.constraint(equalTo: webSearchBar.bottomAnchor),
+            emptySearchResultView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            emptySearchResultView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            emptySearchResultView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
@@ -157,14 +157,14 @@ class ProductSearchingViewController: BaseViewController {
     }
     
     private func composeView() {
-        let components = [webSearchBar, sortButtonStackView, searchResultsCollectionView, placeholderView, noResultView, indicatorView]
+        let components = [webSearchBar, sortButtonStackView, searchResultsCollectionView, placeholderView, emptySearchResultView, indicatorView]
         components.forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
         indicatorView.isHidden = true
-        noResultView.isHidden = true
+        emptySearchResultView.isHidden = true
         
         sortButtonGroup.forEach {
             sortButtonStackView.addArrangedSubview($0)
