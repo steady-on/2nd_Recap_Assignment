@@ -12,12 +12,7 @@ class ProductSearchingViewController: BaseViewController {
     
     lazy var wishItemRepository = WishItemRepository()
     
-    private var queryResultItems = [Item]() {
-        didSet {
-            emptySearchResultView.isHidden = !queryResultItems.isEmpty
-            searchResultsCollectionView.reloadData()
-        }
-    }
+    private var queryResultItems = [Item]()
     
     private lazy var webSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -89,6 +84,22 @@ class ProductSearchingViewController: BaseViewController {
         composeView()
     }
     
+    private func composeView() {
+        let components = [webSearchBar, sortButtonStackView, searchResultsCollectionView, placeholderView, emptySearchResultView, indicatorView]
+        components.forEach {
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+
+        indicatorView.isHidden = true
+        emptySearchResultView.isHidden = true
+        
+        sortButtonGroup.forEach {
+            sortButtonStackView.addArrangedSubview($0)
+            $0.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
+        }
+    }
+    
     override func setConstraints() {
         NSLayoutConstraint.activate([
             webSearchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -151,25 +162,20 @@ class ProductSearchingViewController: BaseViewController {
                 self.queryResultItems = []
             }
             
-            self.indicatorView.isHidden = true
-            self.searchResultsCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            self.updateViewToQueryResult()
         }
     }
     
-    private func composeView() {
-        let components = [webSearchBar, sortButtonStackView, searchResultsCollectionView, placeholderView, emptySearchResultView, indicatorView]
-        components.forEach {
-            view.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
+    private func updateViewToQueryResult() {
+        searchResultsCollectionView.reloadData()
 
-        indicatorView.isHidden = true
-        emptySearchResultView.isHidden = true
+        emptySearchResultView.isHidden = !queryResultItems.isEmpty
         
-        sortButtonGroup.forEach {
-            sortButtonStackView.addArrangedSubview($0)
-            $0.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
+        if queryResultItems.isEmpty == false {
+            searchResultsCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
         }
+        
+        indicatorView.isHidden = true
     }
 }
 
@@ -187,18 +193,14 @@ extension ProductSearchingViewController: UISearchBarDelegate {
         NaverSearchAPIManager.shared.search(for: keyword) { result in
             switch result {
             case .success(let items):
-                if items.isEmpty == false {
-                    let fetchedItems = self.wishItemRepository.checkItemsInTable(for: items)
-                    self.queryResultItems = fetchedItems
-                    
-                    self.searchResultsCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
-                }
+                let fetchedItems = self.wishItemRepository.checkItemsInTable(for: items)
+                self.queryResultItems = fetchedItems
             case .failure(let error):
                 self.queryResultItems = []
                 self.presentErrorAlert(error)
             }
             
-            self.indicatorView.isHidden = true
+            self.updateViewToQueryResult()
         }
     }
     
@@ -269,6 +271,7 @@ extension ProductSearchingViewController: UICollectionViewDataSourcePrefetching 
                 }
                 
                 self.indicatorView.isHidden = true
+                self.searchResultsCollectionView.reloadData()
             }
         }
     }
