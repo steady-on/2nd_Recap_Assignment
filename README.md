@@ -1,2 +1,6 @@
-# PersonalTemplate
-개인 프로젝트 템플릿
+# MyWishList Project
+
+SeSAC iOS 개발자 데뷔과정 4~8주차 종합 평가 과제
+
+
+
