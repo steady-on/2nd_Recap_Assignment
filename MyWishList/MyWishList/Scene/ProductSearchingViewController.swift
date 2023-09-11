@@ -232,36 +232,22 @@ extension ProductSearchingViewController: UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = queryResultItems[indexPath.item]
         
-        let productDetailWebView = ProductDetailWebViewController(link: item.link)
-        productDetailWebView.toggleWishButtonCompletionHandler = {
-            if self.queryResultItems[indexPath.item].isInWishList {
-                do {
-                    try self.wishItemRepository.delete(for: item.productID)
-                } catch {
-                    self.presentErrorAlert(error)
-                }
-            } else {
-                do {
+        let productDetailWebView = ProductDetailWebViewController(link: item.link, title: item.title, isWish: item.isInWishList) { isInWish in
+            guard isInWish != item.isInWishList else { return }
+            
+            do {
+                if isInWish {
                     try self.wishItemRepository.createItem(from: item, imageData: nil)
-                } catch {
-                    self.presentErrorAlert(error)
+                } else {
+                    try self.wishItemRepository.delete(for: item.productID)
                 }
+                
+                self.queryResultItems[indexPath.item].isInWishList = isInWish
+                collectionView.reloadItems(at: [indexPath])
+            } catch {
+                self.presentErrorAlert(error)
             }
-            
-            self.queryResultItems[indexPath.item].isInWishList.toggle()
-            
-            let image = self.queryResultItems[indexPath.item].isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-            productDetailWebView.navigationItem.rightBarButtonItem?.image = image
         }
-        
-        productDetailWebView.title = item.title
-        
-        let image = item.isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-        let toggleWishButton = UIBarButtonItem()
-        toggleWishButton.image = image
-        toggleWishButton.tintColor = .label
-        
-        productDetailWebView.navigationItem.rightBarButtonItem = toggleWishButton
         
         navigationController?.pushViewController(productDetailWebView, animated: true)
     }

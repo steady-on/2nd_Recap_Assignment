@@ -12,17 +12,33 @@ class ProductDetailWebViewController: BaseViewController {
     
     var link: String!
     
-    var toggleWishButtonCompletionHandler: (() -> ())?
+    private var isInWishList: Bool!
+    private var isInWishCompletionHandler: ((Bool) -> ())!
+    
+    private var wishButtonImage: UIImage? {
+        isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+    }
     
     private lazy var webView: WKWebView = WKWebView()
     
-    init(link: String) {
+    init(link: String, title: String, isWish isInWishList: Bool, isInWishCompletionHandler: @escaping (Bool) -> ()) {
         super.init()
+        
         self.link = link
+        self.title = title
+        self.isInWishList = isInWishList
+        self.isInWishCompletionHandler = isInWishCompletionHandler
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        isInWishCompletionHandler(isInWishList)
     }
     
     override func configure() {
@@ -38,12 +54,13 @@ class ProductDetailWebViewController: BaseViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.rightBarButtonItem?.target = self
-        navigationItem.rightBarButtonItem?.action = #selector(toggleWishButtonTapped)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: wishButtonImage, style: .plain, target: self, action: #selector(toggleWishButtonTapped))
+        navigationItem.rightBarButtonItem?.tintColor = .systemPink
     }
     
     @objc private func toggleWishButtonTapped() {
-        toggleWishButtonCompletionHandler?()
+        isInWishList.toggle()
+        navigationItem.rightBarButtonItem?.image = wishButtonImage
     }
     
     override func setConstraints() {
