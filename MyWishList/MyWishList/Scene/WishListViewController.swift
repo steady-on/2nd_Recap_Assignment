@@ -185,11 +185,9 @@ extension WishListViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = Item(from: wishList[indexPath.item])
         
-        let productDetailWebView = ProductDetailWebViewController {
+        let productDetailWebView = ProductDetailWebViewController(departure: .wishList, indexPath: nil, wishItem: item) {
             collectionView.reloadData()
         }
-        
-        productDetailWebView.item = item
         
         navigationController?.pushViewController(productDetailWebView, animated: true)
     }

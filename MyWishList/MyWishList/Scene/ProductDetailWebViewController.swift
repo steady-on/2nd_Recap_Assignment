@@ -10,17 +10,19 @@ import WebKit
 
 class ProductDetailWebViewController: BaseViewController {
     
-    var indexPath: IndexPath?
+    private var departure: Departure
     
-    var item: Item? {
-        get {
+    private var indexPath: IndexPath?
+    private var wishItem: Item?
+    
+    private var item: Item? {
+        switch departure {
+        case .search:
             guard let indexPath else { return nil }
             return DataStorage.shared.webQueryResults[indexPath.item]
-        }
-        
-        set {
-            guard let index = DataStorage.shared.webQueryResults.firstIndex(where: { $0.productID == newValue?.productID }) else { return }
-            indexPath = IndexPath(item: index, section: 0)
+        case .wishList:
+            guard let wishItem else { return nil }
+            return wishItem
         }
     }
     
@@ -33,7 +35,10 @@ class ProductDetailWebViewController: BaseViewController {
     
     private lazy var webView: WKWebView = WKWebView()
     
-    init(completion: @escaping () -> Void) {
+    init(departure: Departure, indexPath: IndexPath?, wishItem: Item?, completion: @escaping () -> Void) {
+        self.departure = departure
+        self.indexPath = indexPath
+        self.wishItem = wishItem
         self.isInWishCompletionHandler = completion
         
         super.init()
@@ -46,6 +51,10 @@ class ProductDetailWebViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if wishItem != nil {
+            wishItem!.isInWishList = WishItemRepository().checkItemInTable(for: wishItem!.productID) != nil
+        }
         
         navigationItem.rightBarButtonItem?.image = wishButtonImage
     }
@@ -75,10 +84,10 @@ class ProductDetailWebViewController: BaseViewController {
             } else {
                 try WishItemRepository().createItem(from: item, imageData: item.imageData)
             }
+            wishItem?.isInWishList.toggle()
         } catch {
             self.presentErrorAlert(error)
         }
-        
         navigationItem.rightBarButtonItem?.image = wishButtonImage
     }
     
@@ -108,5 +117,12 @@ class ProductDetailWebViewController: BaseViewController {
             }, completion: {(isCompleted) in
                 toastView.removeFromSuperview()
             })
+    }
+}
+
+extension ProductDetailWebViewController {
+    enum Departure {
+        case search
+        case wishList
     }
 }
