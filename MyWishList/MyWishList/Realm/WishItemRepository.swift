@@ -40,11 +40,15 @@ final class WishItemRepository {
         let syncedItems = items.map { item in
             var item = item
             
-            if let existedItem = checkItemInTable(for: item.productID) {
-                item.isInWishList = true
-                item.imageData = existedItem.imageData
-            } else {
+            guard let existedItem = checkItemInTable(for: item.productID) else {
                 item.isInWishList = false
+                return item
+            }
+            
+            item.isInWishList = true
+                
+            if item.imageData == nil {
+                item.imageData = existedItem.imageData
             }
 
             return item

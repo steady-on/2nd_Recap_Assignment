@@ -10,35 +10,51 @@ import WebKit
 
 class ProductDetailWebViewController: BaseViewController {
     
-    var link: String!
+    var indexPath: IndexPath?
     
-    private var isInWishList: Bool!
-    private var isInWishCompletionHandler: ((Bool) -> ())!
+    var item: Item? {
+        get {
+            guard let indexPath else { return nil }
+            return DataStorage.shared.webQueryResults[indexPath.item]
+        }
+        
+        set {
+            guard let index = DataStorage.shared.webQueryResults.firstIndex(where: { $0.productID == newValue?.productID }) else { return }
+            indexPath = IndexPath(item: index, section: 0)
+        }
+    }
     
     private var wishButtonImage: UIImage? {
-        isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+        guard let item else { return UIImage() }
+        return item.isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
     }
+    
+    private var isInWishCompletionHandler: () -> Void
     
     private lazy var webView: WKWebView = WKWebView()
     
-    init(link: String, title: String, isWish isInWishList: Bool, isInWishCompletionHandler: @escaping (Bool) -> ()) {
-        super.init()
+    init(completion: @escaping () -> Void) {
+        self.isInWishCompletionHandler = completion
         
-        self.link = link
-        self.title = title
-        self.isInWishList = isInWishList
-        self.isInWishCompletionHandler = isInWishCompletionHandler
+        super.init()
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationItem.rightBarButtonItem?.image = wishButtonImage
     }
     
     override func configure() {
         super.configure()
         configureNavigationBar()
         
-        guard let link, let url = URL(string: link) else { return }
+        guard let item, let url = URL(string: item.link) else { return }
         let request = URLRequest(url: url)
         webView.load(request)
         
@@ -52,16 +68,18 @@ class ProductDetailWebViewController: BaseViewController {
     }
     
     @objc private func toggleWishButtonTapped() {
-        isInWishList.toggle()
-        navigationItem.rightBarButtonItem?.image = wishButtonImage
-        
-        if isInWishList {
-            showToastMessage(style: .save)
-        } else {
-            showToastMessage(style: .delete)
+        guard let item else { return }
+        do {
+            if item.isInWishList {
+                try WishItemRepository().delete(for: item.productID)
+            } else {
+                try WishItemRepository().createItem(from: item, imageData: item.imageData)
+            }
+        } catch {
+            self.presentErrorAlert(error)
         }
         
-        isInWishCompletionHandler(isInWishList)
+        navigationItem.rightBarButtonItem?.image = wishButtonImage
     }
     
     override func setConstraints() {

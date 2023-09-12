@@ -10,9 +10,9 @@ import RealmSwift
 
 class ProductSearchingViewController: BaseViewController {
     
-    lazy var wishItemRepository = WishItemRepository()
+    private let dataStorage = DataStorage.shared
     
-    private var queryResultItems = [Item]()
+    lazy var wishItemRepository = WishItemRepository()
     
     private lazy var webSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -73,8 +73,7 @@ class ProductSearchingViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        queryResultItems = wishItemRepository.checkItemsInTable(for: queryResultItems)
+        
         searchResultsCollectionView.reloadData()
     }
 
@@ -158,11 +157,10 @@ class ProductSearchingViewController: BaseViewController {
         NaverSearchAPIManager.shared.search(sortedBy: querySortType) { result in
             switch result {
             case .success(let items):
-                let fetchedItems = self.wishItemRepository.checkItemsInTable(for: items)
-                self.queryResultItems = fetchedItems
+                self.dataStorage.storeData(items)
             case .failure(let error):
                 self.presentErrorAlert(error)
-                self.queryResultItems = []
+                self.dataStorage.storeData([])
             }
             
             self.updateViewToQueryResult()
@@ -172,9 +170,9 @@ class ProductSearchingViewController: BaseViewController {
     private func updateViewToQueryResult() {
         searchResultsCollectionView.reloadData()
 
-        emptySearchResultView.isHidden = !queryResultItems.isEmpty
+        emptySearchResultView.isHidden = !dataStorage.webQueryResults.isEmpty
         
-        if queryResultItems.isEmpty == false {
+        if dataStorage.webQueryResults.isEmpty == false {
             searchResultsCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
         }
         
@@ -211,10 +209,9 @@ extension ProductSearchingViewController: UISearchBarDelegate {
         NaverSearchAPIManager.shared.search(for: trimmedKeyword) { result in
             switch result {
             case .success(let items):
-                let fetchedItems = self.wishItemRepository.checkItemsInTable(for: items)
-                self.queryResultItems = fetchedItems
+                self.dataStorage.storeData(items)
             case .failure(let error):
-                self.queryResultItems = []
+                self.dataStorage.storeData([])
                 self.presentErrorAlert(error)
             }
             
@@ -224,28 +221,26 @@ extension ProductSearchingViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         webSearchBar.resignFirstResponder()
-        
     }
 }
 
 extension ProductSearchingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return queryResultItems.count
+        return dataStorage.webQueryResults.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MWCollectionViewCell.identifier, for: indexPath) as? MWCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.item = queryResultItems[indexPath.item]
+        cell.item = dataStorage.webQueryResults[indexPath.item]
         
         cell.saveImageDataCompletionHandler = { data in
-            self.queryResultItems[indexPath.item].imageData = data
+            self.dataStorage.storeImageData(at: indexPath, imageData: data)
         }
         
         cell.toggleWishButtonCompletionHandler = { result in
             switch result {
             case .success(_):
-                self.queryResultItems[indexPath.item].isInWishList.toggle()
                 collectionView.reloadItems(at: [indexPath])
             case .failure(let error):
                 self.presentErrorAlert(error)
@@ -256,22 +251,11 @@ extension ProductSearchingViewController: UICollectionViewDelegate, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = queryResultItems[indexPath.item]
-        
-        let productDetailWebView = ProductDetailWebViewController(link: item.link, title: item.title, isWish: item.isInWishList) { isInWish in            
-            do {
-                if isInWish {
-                    try self.wishItemRepository.createItem(from: item, imageData: nil)
-                } else {
-                    try self.wishItemRepository.delete(for: item.productID)
-                }
-                
-                self.queryResultItems[indexPath.item].isInWishList = isInWish
-                collectionView.reloadItems(at: [indexPath])
-            } catch {
-                self.presentErrorAlert(error)
-            }
+        let productDetailWebView = ProductDetailWebViewController() {
+            collectionView.reloadItems(at: [indexPath])
         }
+        
+        productDetailWebView.indexPath = indexPath
         
         navigationController?.pushViewController(productDetailWebView, animated: true)
     }
@@ -279,15 +263,14 @@ extension ProductSearchingViewController: UICollectionViewDelegate, UICollection
 
 extension ProductSearchingViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths where indexPath.item == queryResultItems.count - 2 {
+        for indexPath in indexPaths where indexPath.item == dataStorage.webQueryResults.count - 2 {
             
             indicatorView.isHidden = false
             
             NaverSearchAPIManager.shared.search(nextPage: true) { result in
                 switch result {
                 case .success(let items):
-                    let fetchedItems = self.wishItemRepository.checkItemsInTable(for: items)
-                    self.queryResultItems.append(contentsOf: fetchedItems)
+                    self.dataStorage.addData(items)
                 case .failure(let error):
                     self.presentErrorAlert(error)
                 }

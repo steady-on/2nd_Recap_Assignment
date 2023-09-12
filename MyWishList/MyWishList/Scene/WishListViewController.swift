@@ -185,20 +185,11 @@ extension WishListViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = Item(from: wishList[indexPath.item])
         
-        let productDetailWebView = ProductDetailWebViewController(link: item.link, title: item.title, isWish: true) { isInWish in
-            
-            do {
-                if isInWish {
-                    try self.wishItemRepository.createItem(from: item, imageData: nil)
-                } else {
-                    try self.wishItemRepository.delete(for: item.productID)
-                }
-            } catch {
-                self.presentErrorAlert(error)
-            }
-            
+        let productDetailWebView = ProductDetailWebViewController {
             collectionView.reloadData()
         }
+        
+        productDetailWebView.item = item
         
         navigationController?.pushViewController(productDetailWebView, animated: true)
     }
