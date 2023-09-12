@@ -56,11 +56,8 @@ class WishListViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         wishList = wishItemRepository.fetchTable()
-        
-        if wishList.isEmpty == false {
-            emptyWishLishView.isHidden = true
-        }
-        
+        emptyWishLishView.isHidden = !wishList.isEmpty
+
         wishListCollectionView.reloadData()
     }
     
@@ -186,13 +183,16 @@ extension WishListViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let wishItem = wishList[indexPath.item]
+        let item = Item(from: wishList[indexPath.item])
         
-        let productDetailWebView = ProductDetailWebViewController(link: wishItem.link, title: wishItem.title, isWish: true) { isInWish in
-            guard isInWish == false else { return }
+        let productDetailWebView = ProductDetailWebViewController(link: item.link, title: item.title, isWish: true) { isInWish in
             
             do {
-                try self.wishItemRepository.delete(wishItem)
+                if isInWish {
+                    try self.wishItemRepository.createItem(from: item, imageData: nil)
+                } else {
+                    try self.wishItemRepository.delete(for: item.productID)
+                }
             } catch {
                 self.presentErrorAlert(error)
             }

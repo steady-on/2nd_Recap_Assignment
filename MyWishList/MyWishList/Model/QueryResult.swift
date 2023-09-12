@@ -47,4 +47,16 @@ struct Item: Codable {
         priceInt = Int(lprice) ?? 0
         priceString = numberFormatter.string(for: priceInt) ?? "0"
     }
+    
+    init(from wishItem: WishItem) {
+        self.productID = wishItem.productID
+        self.title = wishItem.title
+        self.mallName = wishItem.mallName
+        self.priceString = wishItem.priceString
+        self.link = wishItem.link
+        self.image = wishItem.imageLink
+        self.priceInt = wishItem.priceInt
+        self.isInWishList = true
+        self.imageData = wishItem.imageData
+    }
 }

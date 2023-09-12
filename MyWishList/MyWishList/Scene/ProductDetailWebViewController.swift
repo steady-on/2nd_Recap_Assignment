@@ -28,17 +28,10 @@ class ProductDetailWebViewController: BaseViewController {
         self.title = title
         self.isInWishList = isInWishList
         self.isInWishCompletionHandler = isInWishCompletionHandler
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        isInWishCompletionHandler(isInWishList)
     }
     
     override func configure() {
@@ -67,6 +60,8 @@ class ProductDetailWebViewController: BaseViewController {
         } else {
             showToastMessage(style: .delete)
         }
+        
+        isInWishCompletionHandler(isInWishList)
     }
     
     override func setConstraints() {

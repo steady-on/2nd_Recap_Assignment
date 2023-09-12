@@ -258,9 +258,7 @@ extension ProductSearchingViewController: UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = queryResultItems[indexPath.item]
         
-        let productDetailWebView = ProductDetailWebViewController(link: item.link, title: item.title, isWish: item.isInWishList) { isInWish in
-            guard isInWish != item.isInWishList else { return }
-            
+        let productDetailWebView = ProductDetailWebViewController(link: item.link, title: item.title, isWish: item.isInWishList) { isInWish in            
             do {
                 if isInWish {
                     try self.wishItemRepository.createItem(from: item, imageData: nil)
