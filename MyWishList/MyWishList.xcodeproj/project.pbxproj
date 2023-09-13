@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		630928022AB1DB6A009E9EB0 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 630928012AB1DB6A009E9EB0 /* Kingfisher */; };
 		635078BF2AAF36E6008354EB /* MWToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635078BE2AAF36E6008354EB /* MWToastMessageView.swift */; };
 		636AA09F2AAC9F2E0046324A /* MWToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA09E2AAC9F2E0046324A /* MWToggleButton.swift */; };
 		636AA0A42AACA3190046324A /* ProductSearchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0A32AACA3190046324A /* ProductSearchingViewController.swift */; };
@@ -83,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				630928022AB1DB6A009E9EB0 /* Kingfisher in Frameworks */,
 				636AA0B92AAD65190046324A /* RealmSwift in Frameworks */,
 				636AA0B72AAD65190046324A /* Realm in Frameworks */,
 			);
@@ -229,6 +231,7 @@
 			packageProductDependencies = (
 				636AA0B62AAD65190046324A /* Realm */,
 				636AA0B82AAD65190046324A /* RealmSwift */,
+				630928012AB1DB6A009E9EB0 /* Kingfisher */,
 			);
 			productName = MyWishList;
 			productReference = 63BEC8E52AA9E54500E37EAC /* MyWishList.app */;
@@ -260,6 +263,7 @@
 			mainGroup = 63BEC8DC2AA9E54500E37EAC;
 			packageReferences = (
 				636AA0B52AAD65190046324A /* XCRemoteSwiftPackageReference "realm-swift" */,
+				630928002AB1DB69009E9EB0 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 63BEC8E62AA9E54500E37EAC /* Products */;
 			projectDirPath = "";
@@ -533,6 +537,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		630928002AB1DB69009E9EB0 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		636AA0B52AAD65190046324A /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -544,6 +556,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		630928012AB1DB6A009E9EB0 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 630928002AB1DB69009E9EB0 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		636AA0B62AAD65190046324A /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 636AA0B52AAD65190046324A /* XCRemoteSwiftPackageReference "realm-swift" */;
