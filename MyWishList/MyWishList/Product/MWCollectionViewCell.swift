@@ -155,8 +155,10 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         if let wishItem {
             do {
                 try wishItemRepository.delete(wishItem)
+                toggleWishButton.setImage(UIImage(systemName: "heart"), for: .normal)
                 toggleWishButtonCompletionHandler(.success(true))
             } catch {
+                toggleWishButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 toggleWishButtonCompletionHandler(.failure(error))
             }
         }
@@ -166,6 +168,8 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         if item.isInWishList {
             do {
                 try wishItemRepository.delete(for: item.productID)
+                toggleWishButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                self.item?.isInWishList.toggle()
                 toggleWishButtonCompletionHandler(.success(true))
             } catch {
                 toggleWishButtonCompletionHandler(.failure(error))
@@ -177,6 +181,8 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         
         do {
             try wishItemRepository.createItem(from: item, imageData: imageData)
+            toggleWishButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            self.item?.isInWishList.toggle()
             toggleWishButtonCompletionHandler(.success(true))
         } catch {
             toggleWishButtonCompletionHandler(.failure(error))

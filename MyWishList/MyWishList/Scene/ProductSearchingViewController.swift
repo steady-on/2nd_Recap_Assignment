@@ -241,7 +241,7 @@ extension ProductSearchingViewController: UICollectionViewDelegate, UICollection
         cell.toggleWishButtonCompletionHandler = { result in
             switch result {
             case .success(_):
-                collectionView.reloadItems(at: [indexPath])
+                break
             case .failure(let error):
                 self.presentErrorAlert(error)
             }
