@@ -27,8 +27,27 @@ final class DataStorage {
         _webQueryResults.append(contentsOf: items)
     }
     
-    func updateData(for id: String?) {
+    func updateData(for id: String) {
         guard let index = _webQueryResults.firstIndex(where: { $0.productID == id }) else { return }
         _webQueryResults[index].isInWishList.toggle()
+    }
+    
+    func toggleStatusOfIsInWish(for item: Item) -> Result<Item, Error> {
+        var item = item
+        
+        do {
+            if item.isInWishList {
+                try WishItemRepository().delete(for: item.productID)
+            } else {
+                try WishItemRepository().createItem(from: item)
+            }
+            
+            item.isInWishList.toggle()
+            updateData(for: item.productID)
+            
+            return .success(item)
+        } catch {
+            return .failure(error)
+        }
     }
 }

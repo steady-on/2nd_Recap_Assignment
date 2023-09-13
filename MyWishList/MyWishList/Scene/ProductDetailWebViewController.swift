@@ -10,7 +10,11 @@ import WebKit
 
 class ProductDetailWebViewController: BaseViewController {
         
-    private var item: Item
+    private var item: Item {
+        didSet {
+            navigationItem.rightBarButtonItem?.image = wishButtonImage
+        }
+    }
     
     private var wishButtonImage: UIImage? {
         return item.isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
@@ -33,19 +37,16 @@ class ProductDetailWebViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         item.isInWishList = wishItemRepository.checkItemInTable(for: item.productID) != nil
-        navigationItem.rightBarButtonItem?.image = wishButtonImage
     }
     
     override func configure() {
         super.configure()
         configureNavigationBar()
         
-        guard let url = URL(string: item.link) else { return }
-        let request = URLRequest(url: url)
-        webView.load(request)
-        
         view.addSubview(webView)
         webView.translatesAutoresizingMaskIntoConstraints = false
+        
+        requestProductLink()
     }
     
     private func configureNavigationBar() {
@@ -54,17 +55,13 @@ class ProductDetailWebViewController: BaseViewController {
     }
     
     @objc private func toggleWishButtonTapped() {
-        do {
-            if item.isInWishList {
-                try WishItemRepository().delete(for: item.productID)
-            } else {
-                try WishItemRepository().createItem(from: item)
-            }
-            item.isInWishList.toggle()
-            DataStorage.shared.updateData(for: item.productID)
-            navigationItem.rightBarButtonItem?.image = wishButtonImage
-        } catch {
-            self.presentErrorAlert(error)
+        let result = DataStorage.shared.toggleStatusOfIsInWish(for: item)
+        
+        switch result {
+        case .success(let item):
+            self.item = item
+        case .failure(let error):
+            presentErrorAlert(error)
         }
     }
     
@@ -75,6 +72,12 @@ class ProductDetailWebViewController: BaseViewController {
             webView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    private func requestProductLink() {
+        guard let url = URL(string: item.link) else { return }
+        let request = URLRequest(url: url)
+        webView.load(request)
     }
     
     private func showToastMessage(style: MWToastMessageView.ToastType) {
