@@ -12,8 +12,8 @@ final class WishItemRepository {
     
     private var realm = try! Realm()
     
-    func createItem(from data: Item, imageData: Data?) throws {
-        let newWish = WishItem(from: data, imageData: imageData)
+    func createItem(from data: Item) throws {
+        let newWish = WishItem(from: data)
         do {
             try realm.write { realm.add(newWish) }
         } catch {
@@ -46,10 +46,6 @@ final class WishItemRepository {
             }
             
             item.isInWishList = true
-                
-            if item.imageData == nil {
-                item.imageData = existedItem.imageData
-            }
 
             return item
         }
@@ -59,12 +55,6 @@ final class WishItemRepository {
     
     func checkItemInTable(for id: String) -> WishItem? {
         return realm.object(ofType: WishItem.self, forPrimaryKey: id)
-    }
-    
-    func updateItemImageData(for item: WishItem, imageData: Data?) {
-        try! realm.write {
-            item.imageData = imageData
-        }
     }
     
     func delete(_ item: WishItem) throws {

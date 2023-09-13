@@ -234,10 +234,6 @@ extension ProductSearchingViewController: UICollectionViewDelegate, UICollection
         
         cell.item = dataStorage.webQueryResults[indexPath.item]
         
-        cell.saveImageDataCompletionHandler = { data in
-            self.dataStorage.storeImageData(at: indexPath, imageData: data)
-        }
-        
         cell.toggleWishButtonCompletionHandler = { result in
             switch result {
             case .success(_):

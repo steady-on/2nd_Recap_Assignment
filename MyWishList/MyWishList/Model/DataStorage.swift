@@ -26,8 +26,4 @@ final class DataStorage {
     func addData(_ items: [Item]) {
         _webQueryResults.append(contentsOf: items)
     }
-    
-    func storeImageData(at indexPath: IndexPath, imageData: Data?) {
-        _webQueryResults[indexPath.item].imageData = imageData
-    }
 }

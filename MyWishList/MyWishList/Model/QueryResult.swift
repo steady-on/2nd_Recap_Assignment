@@ -21,7 +21,6 @@ struct Item: Codable {
     let image: String
     let priceInt: Int
     var isInWishList: Bool = false
-    var imageData: Data?
 
     enum CodingKeys: String, CodingKey {
         case title, link, image, mallName
@@ -57,6 +56,5 @@ struct Item: Codable {
         self.image = wishItem.imageLink
         self.priceInt = wishItem.priceInt
         self.isInWishList = true
-        self.imageData = wishItem.imageData
     }
 }

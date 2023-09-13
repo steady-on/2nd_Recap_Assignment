@@ -15,11 +15,7 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         didSet {
             guard let item else { return }
             
-            if let imageData = item.imageData {
-                productImageView.image = UIImage(data: imageData)
-            } else {
-                productImageView.loadImage(from: item.image)
-            }
+            productImageView.loadImage(from: item.image)
             
             let buttonImage = item.isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
             toggleWishButton.setImage(buttonImage, for: .normal)
@@ -33,11 +29,7 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         didSet {
             guard let wishItem else { return }
             
-            if let imageData = wishItem.imageData {
-                productImageView.image = UIImage(data: imageData)
-            } else {
-                productImageView.loadImage(from: wishItem.imageLink)
-            }
+            productImageView.loadImage(from: wishItem.imageLink)
             
             let buttonImage = UIImage(systemName: "heart.fill")
             toggleWishButton.setImage(buttonImage, for: .normal)
@@ -178,7 +170,7 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         let imageData = productImageView.image?.jpegData(compressionQuality: 0.5)
         
         do {
-            try wishItemRepository.createItem(from: item, imageData: imageData)
+            try wishItemRepository.createItem(from: item)
             toggleWishButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             self.item?.isInWishList.toggle()
             toggleWishButtonCompletionHandler(.success(true))

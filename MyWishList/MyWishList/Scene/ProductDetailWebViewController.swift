@@ -82,7 +82,7 @@ class ProductDetailWebViewController: BaseViewController {
             if item.isInWishList {
                 try WishItemRepository().delete(for: item.productID)
             } else {
-                try WishItemRepository().createItem(from: item, imageData: item.imageData)
+                try WishItemRepository().createItem(from: item)
             }
             wishItem?.isInWishList.toggle()
         } catch {
