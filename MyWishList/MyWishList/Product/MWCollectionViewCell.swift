@@ -19,7 +19,6 @@ class MWCollectionViewCell: BaseCollectionViewCell {
                 productImageView.image = UIImage(data: imageData)
             } else {
                 productImageView.loadImage(from: item.image)
-                saveImageData()
             }
             
             let buttonImage = item.isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
@@ -38,7 +37,6 @@ class MWCollectionViewCell: BaseCollectionViewCell {
                 productImageView.image = UIImage(data: imageData)
             } else {
                 productImageView.loadImage(from: wishItem.imageLink)
-                saveImageData()
             }
             
             let buttonImage = UIImage(systemName: "heart.fill")
@@ -187,13 +185,5 @@ class MWCollectionViewCell: BaseCollectionViewCell {
         } catch {
             toggleWishButtonCompletionHandler(.failure(error))
         }
-    }
-    
-    private func saveImageData() {
-        let imageData = productImageView.image?.jpegData(compressionQuality: 0.5)
-        saveImageDataCompletionHandler?(imageData)
-        
-        guard let wishItem else { return }
-        wishItemRepository.updateItemImageData(for: wishItem, imageData: imageData)
     }
 }
