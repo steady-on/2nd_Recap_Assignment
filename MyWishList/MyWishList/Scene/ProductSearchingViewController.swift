@@ -247,9 +247,8 @@ extension ProductSearchingViewController: UICollectionViewDelegate, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let productDetailWebView = ProductDetailWebViewController(departure: .search, indexPath: indexPath, wishItem: nil) {
-            collectionView.reloadItems(at: [indexPath])
-        }
+        let item = dataStorage.webQueryResults[indexPath.item]
+        let productDetailWebView = ProductDetailWebViewController(item: item)
         
         navigationController?.pushViewController(productDetailWebView, animated: true)
     }

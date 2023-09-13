@@ -26,4 +26,9 @@ final class DataStorage {
     func addData(_ items: [Item]) {
         _webQueryResults.append(contentsOf: items)
     }
+    
+    func updateData(for id: String?) {
+        guard let index = _webQueryResults.firstIndex(where: { $0.productID == id }) else { return }
+        _webQueryResults[index].isInWishList.toggle()
+    }
 }

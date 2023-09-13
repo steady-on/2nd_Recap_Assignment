@@ -57,7 +57,6 @@ class WishListViewController: BaseViewController {
         
         wishList = wishItemRepository.fetchTable()
         emptyWishLishView.isHidden = !wishList.isEmpty
-
         wishListCollectionView.reloadData()
     }
     
@@ -185,9 +184,7 @@ extension WishListViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = Item(from: wishList[indexPath.item])
         
-        let productDetailWebView = ProductDetailWebViewController(departure: .wishList, indexPath: nil, wishItem: item) {
-            collectionView.reloadData()
-        }
+        let productDetailWebView = ProductDetailWebViewController(item: item)
         
         navigationController?.pushViewController(productDetailWebView, animated: true)
     }
