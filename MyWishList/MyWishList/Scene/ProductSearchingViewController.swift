@@ -233,15 +233,7 @@ extension ProductSearchingViewController: UICollectionViewDelegate, UICollection
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MWCollectionViewCell.identifier, for: indexPath) as? MWCollectionViewCell else { return UICollectionViewCell() }
         
         cell.item = dataStorage.webQueryResults[indexPath.item]
-        
-        cell.toggleWishButtonCompletionHandler = { result in
-            switch result {
-            case .success(_):
-                break
-            case .failure(let error):
-                self.presentErrorAlert(error)
-            }
-        }
+        cell.errorHandler = { error in self.presentErrorAlert(error) }
         
         return cell
     }

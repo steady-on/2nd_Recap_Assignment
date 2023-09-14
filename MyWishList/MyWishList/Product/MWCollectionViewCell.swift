@@ -9,37 +9,22 @@ import UIKit
 
 class MWCollectionViewCell: BaseCollectionViewCell {
     
-    private lazy var wishItemRepository = WishItemRepository()
-    
-    var item: Item? {
+    var item: Item! {
         didSet {
-            guard let item else { return }
-            
             productImageView.loadImage(from: item.image)
-            
-            let buttonImage = item.isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
-            toggleWishButton.setImage(buttonImage, for: .normal)
+            toggleWishButton.setImage(wishButtonImage, for: .normal)
             mallNameLabel.text = "[" + item.mallName + "]"
             titleLabel.text = item.title
             priceLabel.text = item.priceString
         }
     }
     
-    var wishItem: WishItem? {
-        didSet {
-            guard let wishItem else { return }
-            
-            productImageView.loadImage(from: wishItem.imageLink)
-            
-            let buttonImage = UIImage(systemName: "heart.fill")
-            toggleWishButton.setImage(buttonImage, for: .normal)
-            mallNameLabel.text = "[" + wishItem.mallName + "]"
-            titleLabel.text = wishItem.title
-            priceLabel.text = wishItem.priceString
-        }
+    private var wishButtonImage: UIImage? {
+        item.isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
     }
     
-    var saveImageDataCompletionHandler: ((Data?) -> ())?
+    var completionHandler: (() -> Void)?
+    var errorHandler: ((Error) -> Void)!
     
     var toggleWishButtonCompletionHandler: ((Result<Bool,Error>) -> ())!
     
@@ -141,41 +126,14 @@ class MWCollectionViewCell: BaseCollectionViewCell {
     }
     
     @objc private func toggleWishButtonTapped() {
+        let result = DataStorage.shared.toggleStatusOfIsInWish(for: item)
         
-        if let wishItem {
-            do {
-                try wishItemRepository.delete(wishItem)
-                toggleWishButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                toggleWishButtonCompletionHandler(.success(true))
-            } catch {
-                toggleWishButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                toggleWishButtonCompletionHandler(.failure(error))
-            }
-        }
-        
-        guard let item else { return }
-        
-        if item.isInWishList {
-            do {
-                try wishItemRepository.delete(for: item.productID)
-                toggleWishButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                self.item?.isInWishList.toggle()
-                toggleWishButtonCompletionHandler(.success(true))
-            } catch {
-                toggleWishButtonCompletionHandler(.failure(error))
-            }
-            return
-        }
-        
-        let imageData = productImageView.image?.jpegData(compressionQuality: 0.5)
-        
-        do {
-            try wishItemRepository.createItem(from: item)
-            toggleWishButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            self.item?.isInWishList.toggle()
-            toggleWishButtonCompletionHandler(.success(true))
-        } catch {
-            toggleWishButtonCompletionHandler(.failure(error))
+        switch result {
+        case .success(let item):
+            self.item = item
+            completionHandler?()
+        case .failure(let error):
+            errorHandler(error)
         }
     }
 }

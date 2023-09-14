@@ -164,19 +164,14 @@ extension WishListViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MWCollectionViewCell.identifier, for: indexPath) as? MWCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.wishItem = wishList[indexPath.item]
-        cell.toggleWishButtonCompletionHandler = { result in
-            switch result {
-            case .success(_):
-                collectionView.reloadData()
-            case .failure(let error):
-                self.presentErrorAlert(error)
-            }
-            
-            if self.wishList.isEmpty {
-                self.emptyWishLishView.isHidden = false
-            }
+        let item = Item(from: wishList[indexPath.item])
+        
+        cell.item = item
+        cell.completionHandler = {
+            collectionView.reloadData()
+            self.emptyWishLishView.isHidden = !self.wishList.isEmpty
         }
+        cell.errorHandler = { error in self.presentErrorAlert(error) }
         
         return cell
     }
