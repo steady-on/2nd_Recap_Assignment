@@ -6,16 +6,20 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MWCollectionViewCell: BaseCollectionViewCell {
     
     var item: Item! {
         didSet {
-            productImageView.loadImage(from: item.image)
             toggleWishButton.setImage(wishButtonImage, for: .normal)
             mallNameLabel.text = "[" + item.mallName + "]"
             titleLabel.text = item.title
             priceLabel.text = item.priceString
+            
+            guard let url = URL(string: item.image) else { return }
+            productImageView.kf.indicatorType = .activity
+            productImageView.kf.setImage(with: url)
         }
     }
     
