@@ -10,9 +10,7 @@ import RealmSwift
 
 class ProductSearchingViewController: BaseViewController {
     
-    private let dataStorage = DataStorage.shared
-    
-    lazy var wishItemRepository = WishItemRepository()
+    private lazy var dataStorage = DataStorage.shared
     
     private lazy var webSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
