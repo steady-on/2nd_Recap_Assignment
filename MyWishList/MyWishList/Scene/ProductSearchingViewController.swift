@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import Kingfisher
 
 class ProductSearchingViewController: BaseViewController {
     
@@ -253,6 +254,8 @@ extension ProductSearchingViewController: UICollectionViewDataSourcePrefetching 
             NaverSearchAPIManager.shared.search(nextPage: true) { result in
                 switch result {
                 case .success(let items):
+                    let urls = items.compactMap { URL(string: $0.image) }
+                    ImagePrefetcher(urls: urls).start()
                     self.dataStorage.addData(items)
                 case .failure(let error):
                     self.presentErrorAlert(error)
