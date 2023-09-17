@@ -22,6 +22,7 @@
 		636AA0C52AADB14B0046324A /* WishItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0C42AADB14B0046324A /* WishItemRepository.swift */; };
 		636AA1052AAEDF1A0046324A /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA1042AAEDF1A0046324A /* WishListViewController.swift */; };
 		637450E12AB047E100F68933 /* DataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637450E02AB047E100F68933 /* DataStorage.swift */; };
+		639E688E2AB7376E00210CAA /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639E688D2AB7376E00210CAA /* NetworkMonitor.swift */; };
 		63BEC8E92AA9E54500E37EAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8E82AA9E54500E37EAC /* AppDelegate.swift */; };
 		63BEC8EB2AA9E54500E37EAC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8EA2AA9E54500E37EAC /* SceneDelegate.swift */; };
 		63BEC8ED2AA9E54500E37EAC /* MWTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEC8EC2AA9E54500E37EAC /* MWTabBarController.swift */; };
@@ -55,6 +56,7 @@
 		636AA0C42AADB14B0046324A /* WishItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishItemRepository.swift; sourceTree = "<group>"; };
 		636AA1042AAEDF1A0046324A /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
 		637450E02AB047E100F68933 /* DataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorage.swift; sourceTree = "<group>"; };
+		639E688D2AB7376E00210CAA /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		63BEC8E52AA9E54500E37EAC /* MyWishList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWishList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63BEC8E82AA9E54500E37EAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63BEC8EA2AA9E54500E37EAC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,22 @@
 			path = Realm;
 			sourceTree = "<group>";
 		};
+		639E688B2AB7373700210CAA /* DataManagement */ = {
+			isa = PBXGroup;
+			children = (
+				637450E02AB047E100F68933 /* DataStorage.swift */,
+			);
+			path = DataManagement;
+			sourceTree = "<group>";
+		};
+		639E688C2AB7375400210CAA /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				639E688D2AB7376E00210CAA /* NetworkMonitor.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		63BEC8DC2AA9E54500E37EAC = {
 			isa = PBXGroup;
 			children = (
@@ -135,10 +153,12 @@
 				636AA0A02AACA12C0046324A /* Scene */,
 				63BEC9222AAB1FB700E37EAC /* Product */,
 				63BEC9192AAAFE5D00E37EAC /* Base */,
+				639E688B2AB7373700210CAA /* DataManagement */,
 				63BEC9012AA9EA9B00E37EAC /* Model */,
 				636AA0B42AAD649E0046324A /* Realm */,
 				63BEC8FC2AA9E7F200E37EAC /* Network */,
 				63BEC9042AA9F18200E37EAC /* Error */,
+				639E688C2AB7375400210CAA /* Tools */,
 				63BEC9092AAA21DC00E37EAC /* Extension */,
 				63BEC8F12AA9E54600E37EAC /* Assets.xcassets */,
 				63BEC8F32AA9E54600E37EAC /* LaunchScreen.storyboard */,
@@ -161,7 +181,6 @@
 			children = (
 				63BEC9022AA9EACC00E37EAC /* QueryResult.swift */,
 				63BEC9072AAA205100E37EAC /* QuerySortType.swift */,
-				637450E02AB047E100F68933 /* DataStorage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -302,6 +321,7 @@
 				636AA0A42AACA3190046324A /* ProductSearchingViewController.swift in Sources */,
 				63BEC9212AAB0BAE00E37EAC /* BaseCollectionView.swift in Sources */,
 				63BEC8EB2AA9E54500E37EAC /* SceneDelegate.swift in Sources */,
+				639E688E2AB7376E00210CAA /* NetworkMonitor.swift in Sources */,
 				636AA09F2AAC9F2E0046324A /* MWToggleButton.swift in Sources */,
 				63BEC92A2AAB2FB100E37EAC /* UIFont+.swift in Sources */,
 				636AA1052AAEDF1A0046324A /* WishListViewController.swift in Sources */,
