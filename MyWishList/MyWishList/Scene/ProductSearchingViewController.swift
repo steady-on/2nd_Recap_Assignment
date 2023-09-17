@@ -68,6 +68,17 @@ class ProductSearchingViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NetworkMonitor.shared.networkStatusUpdateHandler { [weak self] connectionStatus in
+            switch connectionStatus {
+            case .satisfied, .requiresConnection:
+                break
+            case .unsatisfied:
+                self?.presentNetworkDisconnectStatus()
+            @unknown default:
+                self?.presentNetworkDisconnectStatus()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,6 +94,15 @@ class ProductSearchingViewController: BaseViewController {
         title = "상품 검색"
         
         composeView()
+        
+        switch NetworkMonitor.shared.currentStatus {
+        case .satisfied, .requiresConnection:
+            break
+        case .unsatisfied:
+            presentNetworkDisconnectStatus()
+        @unknown default:
+            presentNetworkDisconnectStatus()
+        }
     }
     
     private func composeView() {
@@ -176,6 +196,16 @@ class ProductSearchingViewController: BaseViewController {
         }
         
         indicatorView.isHidden = true
+    }
+    
+    override func presentNetworkDisconnectStatus() {
+        let alert = UIAlertController(title: "인터넷에 연결되지 않았어요", message: "오프라인 상태에서는 상품의 검색이 불가능합니다.", preferredStyle: .alert)
+        
+        let okay = UIAlertAction(title: "알겠어요!", style: .cancel)
+        
+        alert.addAction(okay)
+        
+        present(alert, animated: true)
     }
 }
 

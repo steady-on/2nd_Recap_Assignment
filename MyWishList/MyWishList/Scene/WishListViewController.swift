@@ -50,6 +50,17 @@ class WishListViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NetworkMonitor.shared.networkStatusUpdateHandler { [weak self] connectionStatus in
+            switch connectionStatus {
+            case .satisfied, .requiresConnection:
+                break
+            case .unsatisfied:
+                self?.presentNetworkDisconnectStatus()
+            @unknown default:
+                self?.presentNetworkDisconnectStatus()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,6 +78,15 @@ class WishListViewController: BaseViewController {
         
         configureNavigationBar()
         composeView()
+        
+        switch NetworkMonitor.shared.currentStatus {
+        case .satisfied, .requiresConnection:
+            break
+        case .unsatisfied:
+            presentNetworkDisconnectStatus()
+        @unknown default:
+            presentNetworkDisconnectStatus()
+        }
     }
     
     override func setConstraints() {
@@ -115,6 +135,16 @@ class WishListViewController: BaseViewController {
         title = "나의찜목록"
         navigationItem.searchController = wishListSearchController
         navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    override func presentNetworkDisconnectStatus() {
+        let alert = UIAlertController(title: "인터넷에 연결되지 않았어요", message: "오프라인 상태에서는 찜한 아이템의 사진이 보이지 않을 수 있으며, 찜목록 확인과 삭제만 가능합니다.", preferredStyle: .alert)
+        
+        let okay = UIAlertAction(title: "알겠어요!", style: .cancel)
+        
+        alert.addAction(okay)
+        
+        present(alert, animated: true)
     }
 }
 

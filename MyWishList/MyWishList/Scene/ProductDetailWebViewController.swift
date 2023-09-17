@@ -31,6 +31,20 @@ class ProductDetailWebViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NetworkMonitor.shared.networkStatusUpdateHandler { [weak self] connectionStatus in
+            print(connectionStatus)
+            switch connectionStatus {
+            case .satisfied:
+                self?.requestProductLink()
+            case .unsatisfied:
+                self?.presentNetworkDisconnectStatus()
+            case .requiresConnection:
+                break
+            @unknown default:
+                self?.presentNetworkDisconnectStatus()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +60,16 @@ class ProductDetailWebViewController: BaseViewController {
         view.addSubview(webView)
         webView.translatesAutoresizingMaskIntoConstraints = false
         
-        requestProductLink()
+        switch NetworkMonitor.shared.currentStatus {
+        case .satisfied:
+            requestProductLink()
+        case .unsatisfied:
+            presentNetworkDisconnectStatus()
+        case .requiresConnection:
+            break
+        @unknown default:
+            presentNetworkDisconnectStatus()
+        }
     }
     
     private func configureNavigationBar() {
@@ -97,5 +120,17 @@ class ProductDetailWebViewController: BaseViewController {
             }, completion: {(isCompleted) in
                 toastView.removeFromSuperview()
             })
+    }
+    
+    override func presentNetworkDisconnectStatus() {
+        let alert = UIAlertController(title: "인터넷에 연결되지 않았어요", message: "선택하신 상품의 정보를 불러올 수 없습니다.", preferredStyle: .alert)
+        
+        let okay = UIAlertAction(title: "알겠어요!", style: .cancel) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        alert.addAction(okay)
+        
+        present(alert, animated: true)
     }
 }
