@@ -31,6 +31,8 @@ class BaseViewController: UIViewController {
     
     func setConstraints() {}
     
+    func presentNetworkDisconnectStatus() {}
+    
     func presentErrorAlert(_ error: Error) {
         let alert = UIAlertController(title: error.localizedDescription, message: nil, preferredStyle: .alert)
         
