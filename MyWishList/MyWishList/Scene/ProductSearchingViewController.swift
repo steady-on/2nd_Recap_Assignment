@@ -167,7 +167,7 @@ class ProductSearchingViewController: BaseViewController {
         webSearchBar.resignFirstResponder()
         
         sortButtonGroup.forEach {
-            ($0.tag == sender.tag) ? ($0.isSelected = true) : ($0.isSelected = false)
+            $0.isSelected = $0.tag == sender.tag
         }
         
         indicatorView.isHidden = false
