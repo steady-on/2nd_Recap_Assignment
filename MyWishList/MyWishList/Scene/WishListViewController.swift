@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class WishListViewController: BaseViewController {
+final class WishListViewController: BaseViewController {
     
     private lazy var wishItemRepository = WishItemRepository()
     

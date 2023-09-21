@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MWToastMessageView: BaseView {
+final class MWToastMessageView: BaseView {
     
     private lazy var messageLabel: UILabel = {
         let label = UILabel()

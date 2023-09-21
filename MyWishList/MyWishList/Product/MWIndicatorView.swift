@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MWIndicatorView: BaseView {
+final class MWIndicatorView: BaseView {
     
     private lazy var indicatorView: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()

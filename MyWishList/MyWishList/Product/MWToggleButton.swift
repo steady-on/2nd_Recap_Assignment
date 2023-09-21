@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MWToggleButton: UIButton {
+final class MWToggleButton: UIButton {
     
     private var color: UIColor?
     

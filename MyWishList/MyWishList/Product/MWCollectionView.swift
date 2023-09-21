@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MWCollectionView: BaseCollectionView {
+final class MWCollectionView: BaseCollectionView {
     
     init() {
         super.init(collectionViewLayout: UICollectionViewLayout())

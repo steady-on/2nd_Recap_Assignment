@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 import Kingfisher
 
-class ProductSearchingViewController: BaseViewController {
+final class ProductSearchingViewController: BaseViewController {
     
     private lazy var dataStorage = DataStorage.shared
     

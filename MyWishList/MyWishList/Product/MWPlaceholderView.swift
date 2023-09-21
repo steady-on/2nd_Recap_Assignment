@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MWPlaceholderView: BaseView {
+final class MWPlaceholderView: BaseView {
 
     private lazy var symbolImageView: UIImageView = {
         let imageView = UIImageView()

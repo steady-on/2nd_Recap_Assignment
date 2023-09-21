@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class ProductDetailWebViewController: BaseViewController {
+final class ProductDetailWebViewController: BaseViewController {
         
     private var item: Item {
         didSet {

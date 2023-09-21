@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MWTabBarController: UITabBarController {
+final class MWTabBarController: UITabBarController {
     
     private lazy var productSearchingViewController = ProductSearchingViewController()
     private lazy var wishListViewController = WishListViewController()

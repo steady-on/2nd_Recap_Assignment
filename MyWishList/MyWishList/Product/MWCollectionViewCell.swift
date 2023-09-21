@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class MWCollectionViewCell: BaseCollectionViewCell {
+final class MWCollectionViewCell: BaseCollectionViewCell {
     
     var item: Item! {
         didSet {
