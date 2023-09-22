@@ -10,43 +10,30 @@ import RealmSwift
 
 final class WishListViewController: BaseViewController {
     
-    private lazy var wishItemRepository = WishItemRepository()
+    private let wishItemRepository = WishItemRepository()
     
     private var wishList: Results<WishItem>!
     
-    private lazy var wishListSearchController: UISearchController = {
+    private let wishListSearchController: UISearchController = {
         let searchController = UISearchController()
         searchController.searchBar.placeholder = "찜한 상품에서 검색"
         searchController.searchBar.searchTextField.clearButtonMode = .always
         searchController.searchBar.showsCancelButton = true
         searchController.searchBar.returnKeyType = .go
         searchController.searchBar.tintColor = .label
-        searchController.searchBar.delegate = self
         
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = true
-        searchController.searchResultsUpdater = self
         return searchController
     }()
     
-    private lazy var emptyWishLishView: MWPlaceholderView = {
-        return MWPlaceholderView(symbolName: "archivebox", guideText: "아직 찜한 상품이 없어요.\n상품 검색 화면에서 상품을 찜해보세요!")
-    }()
+    private let emptyWishLishView: MWPlaceholderView = MWPlaceholderView(symbolName: "archivebox", guideText: "아직 찜한 상품이 없어요.\n상품 검색 화면에서 상품을 찜해보세요!")
     
-    private lazy var wishListCollectionView: MWCollectionView = {
-        let collectionView = MWCollectionView()
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        return collectionView
-    }()
+    private let wishListCollectionView: MWCollectionView = MWCollectionView()
     
-    private lazy var indicatorView: MWIndicatorView = {
-        return MWIndicatorView()
-    }()
+    private let indicatorView = MWIndicatorView()
     
-    private lazy var emptySearchResultView: MWPlaceholderView = {
-        return MWPlaceholderView(symbolName: "questionmark", guideText: "찜한 상품에서 찾을 수 없어요.\n상품 검색에서 찜하러 가볼까요?")
-    }()
+    private let emptySearchResultView = MWPlaceholderView(symbolName: "questionmark", guideText: "찜한 상품에서 찾을 수 없어요.\n상품 검색에서 찜하러 가볼까요?")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,9 +58,15 @@ final class WishListViewController: BaseViewController {
         wishListCollectionView.reloadData()
     }
     
-    override func configure() {
-        super.configure()
+    override func configureHiararchy() {
+        super.configureHiararchy()
         
+        wishListSearchController.searchBar.delegate = self
+        wishListSearchController.searchResultsUpdater = self
+        
+        wishListCollectionView.delegate = self
+        wishListCollectionView.dataSource = self
+
         definesPresentationContext = true
         
         configureNavigationBar()

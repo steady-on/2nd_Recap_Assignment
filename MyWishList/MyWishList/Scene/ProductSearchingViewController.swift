@@ -11,20 +11,19 @@ import Kingfisher
 
 final class ProductSearchingViewController: BaseViewController {
     
-    private lazy var dataStorage = DataStorage.shared
+    private let dataStorage = DataStorage.shared
     
-    private lazy var webSearchBar: UISearchBar = {
+    private let webSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "오늘은 뭘 찜해볼까요?"
         searchBar.showsCancelButton = true
         searchBar.returnKeyType = .go
         searchBar.searchTextField.clearButtonMode = .always
         searchBar.tintColor = .label
-        searchBar.delegate = self
         return searchBar
     }()
     
-    private lazy var sortButtonStackView: UIStackView = {
+    private let sortButtonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .leading
@@ -33,7 +32,7 @@ final class ProductSearchingViewController: BaseViewController {
         return stackView
     }()
     
-    private lazy var sortButtonGroup: [UIButton] = {
+    private let sortButtonGroup: [UIButton] = {
         var buttonGroup = [UIButton]()
         
         QuerySortType.allCases.forEach { sortType in
@@ -45,26 +44,17 @@ final class ProductSearchingViewController: BaseViewController {
         return buttonGroup
     }()
     
-    private lazy var searchResultsCollectionView: MWCollectionView = {
+    private let searchResultsCollectionView: MWCollectionView = {
         let collectionView = MWCollectionView()
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.prefetchDataSource = self
         collectionView.keyboardDismissMode = .onDrag
         return collectionView
     }()
     
-    private lazy var indicatorView: MWIndicatorView = {
-        return MWIndicatorView()
-    }()
+    private let indicatorView = MWIndicatorView()
     
-    private lazy var placeholderView: MWPlaceholderView = {
-        return MWPlaceholderView(symbolName: "magnifyingglass", guideText: "원하는 상품을 검색해 주세요!")
-    }()
+    private let placeholderView = MWPlaceholderView(symbolName: "magnifyingglass", guideText: "원하는 상품을 검색해 주세요!")
     
-    private lazy var emptySearchResultView: MWPlaceholderView = {
-        return MWPlaceholderView(symbolName: "questionmark", guideText: "검색 결과가 없습니다. \n다른 검색어로 다시 시도해 주세요.")
-    }()
+    private let emptySearchResultView = MWPlaceholderView(symbolName: "questionmark", guideText: "검색 결과가 없습니다. \n다른 검색어로 다시 시도해 주세요.")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,8 +77,13 @@ final class ProductSearchingViewController: BaseViewController {
         searchResultsCollectionView.reloadData()
     }
 
-    override func configure() {
-        super.configure()
+    override func configureHiararchy() {
+        super.configureHiararchy()
+        
+        webSearchBar.delegate = self
+        searchResultsCollectionView.delegate = self
+        searchResultsCollectionView.dataSource = self
+        searchResultsCollectionView.prefetchDataSource = self
         
         definesPresentationContext = true
         title = "상품 검색"

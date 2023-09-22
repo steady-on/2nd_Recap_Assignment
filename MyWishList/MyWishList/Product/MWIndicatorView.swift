@@ -9,7 +9,7 @@ import UIKit
 
 final class MWIndicatorView: BaseView {
     
-    private lazy var indicatorView: UIActivityIndicatorView = {
+    private let indicatorView: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.hidesWhenStopped = true
         indicator.tintColor = .label

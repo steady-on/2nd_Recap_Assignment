@@ -32,7 +32,7 @@ final class MWCollectionViewCell: BaseCollectionViewCell {
     
     var toggleWishButtonCompletionHandler: ((Result<Bool,Error>) -> ())!
     
-    private lazy var productImageView: UIImageView = {
+    private let productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -41,7 +41,7 @@ final class MWCollectionViewCell: BaseCollectionViewCell {
         return imageView
     }()
     
-    private lazy var toggleWishButton: UIButton = {
+    private let toggleWishButton: UIButton = {
         let button = UIButton()
         button.frame = .init(x: 0, y: 0, width: 35, height: 35)
         button.backgroundColor = .systemBackground
@@ -50,7 +50,7 @@ final class MWCollectionViewCell: BaseCollectionViewCell {
         return button
     }()
     
-    private lazy var infoTextStackView: UIStackView = {
+    private let infoTextStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
@@ -59,21 +59,21 @@ final class MWCollectionViewCell: BaseCollectionViewCell {
         return stackView
     }()
     
-    private lazy var mallNameLabel: UILabel = {
+    private let mallNameLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .callout)
         label.textColor = .secondaryLabel
         return label
     }()
     
-    private lazy var titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 2
         return label
     }()
     
-    private lazy var priceLabel: UILabel = {
+    private let priceLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3).bold()
         return label

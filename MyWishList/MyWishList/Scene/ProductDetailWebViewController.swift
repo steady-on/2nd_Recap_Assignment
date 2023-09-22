@@ -20,8 +20,8 @@ final class ProductDetailWebViewController: BaseViewController {
         return item.isInWishList ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
     }
     
-    private lazy var webView: WKWebView = WKWebView()
-    private lazy var wishItemRepository = WishItemRepository()
+    private let webView: WKWebView = WKWebView()
+    private let wishItemRepository = WishItemRepository()
     
     init(item: Item) {
         self.item = item
@@ -53,8 +53,8 @@ final class ProductDetailWebViewController: BaseViewController {
         item.isInWishList = wishItemRepository.checkItemInTable(for: item.productID) != nil
     }
     
-    override func configure() {
-        super.configure()
+    override func configureHiararchy() {
+        super.configureHiararchy()
         configureNavigationBar()
         
         view.addSubview(webView)

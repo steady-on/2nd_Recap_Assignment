@@ -9,14 +9,14 @@ import UIKit
 
 final class MWPlaceholderView: BaseView {
 
-    private lazy var symbolImageView: UIImageView = {
+    private let symbolImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor = .tertiaryLabel
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    private lazy var guideTextLabel: UILabel = {
+    private let guideTextLabel: UILabel = {
         let label = UILabel()
         label.text = "원하는 상품을 검색해 주세요!"
         label.font = .preferredFont(forTextStyle: .title3)

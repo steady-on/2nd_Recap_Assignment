@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		630928022AB1DB6A009E9EB0 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 630928012AB1DB6A009E9EB0 /* Kingfisher */; };
+		634954D32ABDD3B900A42954 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 634954D22ABDD3B900A42954 /* Realm */; };
+		634954D52ABDD3B900A42954 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 634954D42ABDD3B900A42954 /* RealmSwift */; };
 		635078BF2AAF36E6008354EB /* MWToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635078BE2AAF36E6008354EB /* MWToastMessageView.swift */; };
 		636AA09F2AAC9F2E0046324A /* MWToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA09E2AAC9F2E0046324A /* MWToggleButton.swift */; };
 		636AA0A42AACA3190046324A /* ProductSearchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636AA0A32AACA3190046324A /* ProductSearchingViewController.swift */; };
@@ -86,6 +88,8 @@
 			files = (
 				630928022AB1DB6A009E9EB0 /* Kingfisher in Frameworks */,
 				636AA0B92AAD65190046324A /* RealmSwift in Frameworks */,
+				634954D32ABDD3B900A42954 /* Realm in Frameworks */,
+				634954D52ABDD3B900A42954 /* RealmSwift in Frameworks */,
 				636AA0B72AAD65190046324A /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -248,6 +252,8 @@
 				636AA0B62AAD65190046324A /* Realm */,
 				636AA0B82AAD65190046324A /* RealmSwift */,
 				630928012AB1DB6A009E9EB0 /* Kingfisher */,
+				634954D22ABDD3B900A42954 /* Realm */,
+				634954D42ABDD3B900A42954 /* RealmSwift */,
 			);
 			productName = MyWishList;
 			productReference = 63BEC8E52AA9E54500E37EAC /* MyWishList.app */;
@@ -261,7 +267,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					63BEC8E42AA9E54500E37EAC = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -357,6 +363,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -389,6 +396,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -417,6 +425,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -449,6 +458,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -566,7 +576,7 @@
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.42.1;
+				minimumVersion = 10.42.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -576,6 +586,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 630928002AB1DB69009E9EB0 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		634954D22ABDD3B900A42954 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 636AA0B52AAD65190046324A /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		634954D42ABDD3B900A42954 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 636AA0B52AAD65190046324A /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		636AA0B62AAD65190046324A /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;

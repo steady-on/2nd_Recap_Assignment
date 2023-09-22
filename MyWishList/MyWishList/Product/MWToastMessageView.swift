@@ -9,7 +9,7 @@ import UIKit
 
 final class MWToastMessageView: BaseView {
     
-    private lazy var messageLabel: UILabel = {
+    private let messageLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .callout).bold()
         label.textAlignment = .center
@@ -17,7 +17,7 @@ final class MWToastMessageView: BaseView {
         return label
     }()
     
-    private lazy var symbolImageView: UIImageView = {
+    private let symbolImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
