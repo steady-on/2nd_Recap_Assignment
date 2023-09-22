@@ -36,7 +36,7 @@ final class ProductSearchingViewController: BaseViewController {
     private lazy var sortButtonGroup: [UIButton] = {
         var buttonGroup = [UIButton]()
         
-        for sortType in QuerySortType.allCases {
+        QuerySortType.allCases.forEach { sortType in
             let button = MWToggleButton(title: sortType.labelText, color: .label)
             button.tag = sortType.rawValue
             buttonGroup.append(button)
