@@ -174,7 +174,7 @@ final class ProductSearchingViewController: BaseViewController {
                 self.dataStorage.storeData(items)
             case .failure(let error):
                 self.presentErrorAlert(error)
-                self.dataStorage.storeData([])
+                self.dataStorage.emptyData()
             }
             
             self.updateViewToQueryResult()
@@ -235,7 +235,7 @@ extension ProductSearchingViewController: UISearchBarDelegate {
             case .success(let items):
                 self.dataStorage.storeData(items)
             case .failure(let error):
-                self.dataStorage.storeData([])
+                self.dataStorage.emptyData()
                 self.presentErrorAlert(error)
             }
             

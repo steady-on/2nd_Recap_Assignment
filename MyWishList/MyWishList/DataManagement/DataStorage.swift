@@ -27,6 +27,10 @@ final class DataStorage {
         _webQueryResults.append(contentsOf: items)
     }
     
+    func emptyData() {
+        _webQueryResults.removeAll(keepingCapacity: true)
+    }
+    
     func updateData(for id: String) {
         guard let index = _webQueryResults.firstIndex(where: { $0.productID == id }) else { return }
         _webQueryResults[index].isInWishList.toggle()
