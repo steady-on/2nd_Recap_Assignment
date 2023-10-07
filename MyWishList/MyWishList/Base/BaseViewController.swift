@@ -34,7 +34,7 @@ class BaseViewController: UIViewController {
     func presentNetworkDisconnectStatus() {}
     
     func presentErrorAlert(_ error: Error) {
-        let alert = UIAlertController(title: error.localizedDescription, message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: String(describing: error), message: nil, preferredStyle: .alert)
         
         let okay = UIAlertAction(title: "알겠어요!", style: .cancel)
         
