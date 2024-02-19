@@ -19,7 +19,6 @@ class BaseView: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        print(#function)
         
         configure()
         setConstraints()

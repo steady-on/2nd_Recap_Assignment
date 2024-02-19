@@ -33,7 +33,6 @@ final class ProductDetailWebViewController: BaseViewController {
         super.viewDidLoad()
         
         NetworkMonitor.shared.networkStatusUpdateHandler { [weak self] connectionStatus in
-            print(connectionStatus)
             switch connectionStatus {
             case .satisfied:
                 self?.requestProductLink()
