@@ -18,7 +18,7 @@ final class MWTabBarController: UITabBarController {
         configureTabBar()
     }
 
-    func configureTabBar() {
+    private func configureTabBar() {
         tabBar.tintColor = .label
         
         productSearchingViewController.tabBarItem.title = "상품 검색"

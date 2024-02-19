@@ -61,7 +61,9 @@ final class MWToastMessageView: BaseView {
             messageLabel.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         ])
     }
-    
+}
+
+extension MWToastMessageView {
     enum ToastType {
         case save
         case delete
