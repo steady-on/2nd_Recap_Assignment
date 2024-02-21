@@ -13,6 +13,18 @@ final class ProductSearchingViewController: BaseViewController {
     
     private let dataStorage = DataStorage.shared
     
+    private let webSearchController: UISearchController = {
+        let searchController = UISearchController()
+        searchController.searchBar.placeholder = "오늘은 뭘 찜해볼까요?"
+        searchController.searchBar.showsCancelButton = true
+        searchController.searchBar.returnKeyType = .go
+        searchController.searchBar.searchTextField.clearButtonMode = .always
+        searchController.searchBar.tintColor = .label
+        
+        searchController.hidesNavigationBarDuringPresentation = false
+        return searchController
+    }()
+    
     private let webSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "오늘은 뭘 찜해볼까요?"
@@ -80,13 +92,14 @@ final class ProductSearchingViewController: BaseViewController {
     override func configureHiararchy() {
         super.configureHiararchy()
         
-        webSearchBar.delegate = self
+        webSearchController.searchBar.delegate = self
         searchResultsCollectionView.delegate = self
         searchResultsCollectionView.dataSource = self
         searchResultsCollectionView.prefetchDataSource = self
         
         definesPresentationContext = true
-        title = "상품 검색"
+        navigationItem.title = "상품 검색"
+        navigationItem.searchController = webSearchController
         
         composeView()
         
@@ -101,7 +114,12 @@ final class ProductSearchingViewController: BaseViewController {
     }
     
     private func composeView() {
-        let components = [webSearchBar, sortButtonStackView, searchResultsCollectionView, placeholderView, emptySearchResultView, indicatorView]
+        sortButtonGroup.forEach {
+            sortButtonStackView.addArrangedSubview($0)
+            $0.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
+        }
+        
+        let components = [sortButtonStackView, searchResultsCollectionView, placeholderView, emptySearchResultView, indicatorView]
         components.forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -109,22 +127,11 @@ final class ProductSearchingViewController: BaseViewController {
 
         indicatorView.isHidden = true
         emptySearchResultView.isHidden = true
-        
-        sortButtonGroup.forEach {
-            sortButtonStackView.addArrangedSubview($0)
-            $0.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
-        }
     }
     
     override func setConstraints() {
         NSLayoutConstraint.activate([
-            webSearchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            webSearchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            webSearchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            sortButtonStackView.topAnchor.constraint(equalTo: webSearchBar.bottomAnchor, constant: 8),
+            sortButtonStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             sortButtonStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             sortButtonStackView.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 8)
         ])
@@ -137,21 +144,21 @@ final class ProductSearchingViewController: BaseViewController {
         ])
         
         NSLayoutConstraint.activate([
-            indicatorView.topAnchor.constraint(equalTo: searchResultsCollectionView.topAnchor),
+            indicatorView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             indicatorView.leadingAnchor.constraint(equalTo: searchResultsCollectionView.leadingAnchor),
             indicatorView.trailingAnchor.constraint(equalTo: searchResultsCollectionView.trailingAnchor),
             indicatorView.bottomAnchor.constraint(equalTo: searchResultsCollectionView.bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            placeholderView.topAnchor.constraint(equalTo: webSearchBar.bottomAnchor),
+            placeholderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             placeholderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             placeholderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             placeholderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            emptySearchResultView.topAnchor.constraint(equalTo: webSearchBar.bottomAnchor),
+            emptySearchResultView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             emptySearchResultView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             emptySearchResultView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             emptySearchResultView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
