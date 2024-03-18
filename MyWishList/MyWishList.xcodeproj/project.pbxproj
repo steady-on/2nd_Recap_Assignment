@@ -484,9 +484,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39J2PNZP7V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyWishList/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "백수민";
+				INFOPLIST_KEY_CFBundleDisplayName = "나의찜목록";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -515,9 +516,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39J2PNZP7V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyWishList/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "백수민";
+				INFOPLIST_KEY_CFBundleDisplayName = "나의찜목록";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
